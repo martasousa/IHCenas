@@ -82,7 +82,7 @@ void draw() {
   background(0);
   
   image(kinect.getColorImage(), 0, 0, width, height);
-  image(keyImage, ball.x, ball.y);
+  image(keyImage, ball.x-keyImage.width , ball.y );
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
 
   //individual JOINTS
@@ -117,7 +117,7 @@ void draw() {
       if (holdsObject(ball, joints[KinectPV2.JointType_HandRight])) {
         println("Mao direita na bola");
         moveObject(ball, joints[KinectPV2.JointType_HandRight].getPosition());
-        image(keyImage, ball.x, ball.y);
+        image(keyImage, ball.x-keyImage.width , ball.y );
       }
       if (holdsObject(ball, joints[KinectPV2.JointType_HandLeft])) {
         println("Mao esquerda na bola");
