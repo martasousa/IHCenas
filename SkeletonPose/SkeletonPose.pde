@@ -1,13 +1,13 @@
 
 /*
 https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx
- 
+
  KinectPV2.JointType_Head
  KinectPV2.JointType_Neck
  KinectPV2.JointType_SpineShoulder
  KinectPV2.JointType_SpineMid
  KinectPV2.JointType_SpineBase
- 
+
  // Right Arm
  KinectPV2.JointType_ShoulderRight
  KinectPV2.JointType_ElbowRight
@@ -15,13 +15,13 @@ https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx
  KinectPV2.JointType_HandRight
  KinectPV2.JointType_ThumbRight
  KinectPV2.JointType_HandTipRight
- 
+
  // Right Leg
  KinectPV2.JointType_HipRight
  KinectPV2.JointType_KneeRight
  KinectPV2.JointType_AnkleRight
  KinectPV2.JointType_FootRight
- 
+
  */
 
 import KinectPV2.KJoint;
@@ -42,10 +42,13 @@ class Object{
   }
 }
 
-Object ball;
-
+Object[] gameObjects;
+PImage[] gameImages;
 
 void setup() {
+  gameObjects = new Object[10];
+  gameImages = new PImage[10];
+  int i = 0;
   //size(1920, 1080, P3D);
   fullScreen(P3D);
 
@@ -69,20 +72,26 @@ void setup() {
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.ABOVE, KinectPV2.JointType_ElbowLeft);
   poseArmsOpen.addRule(KinectPV2.JointType_HandRight, PoseRule.RIGHT_OF, KinectPV2.JointType_ElbowRight);
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.LEFT_OF, KinectPV2.JointType_ElbowLeft);
-  
-  ball = new Object(width/2, height/4, 0);
+
+  Object objectKey = new Object(width/2, height/4, 0);
   keyImage = loadImage("chave.png");
-  image(keyImage, ball.x, ball.y);
+  image(keyImage, objectKey.x, objectKey.y);
+  gameObjects[i] = objectKey;
+  gameImages[i] = keyImage;
+  i ++;
   
   
-  
+
+
+
 }
 
 void draw() {
   background(0);
-  
+
   image(kinect.getColorImage(), 0, 0, width, height);
-  image(keyImage, ball.x-keyImage.width , ball.y );
+  println(gameObjects.length);
+  
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
 
   //individual JOINTS
@@ -114,18 +123,24 @@ void draw() {
       drawHandState(joints[KinectPV2.JointType_HandRight]);
       drawHandState(joints[KinectPV2.JointType_HandLeft]);
       //println(joints[KinectPV2.JointType_HandRight].getPosition());
-      if (holdsObject(ball, joints[KinectPV2.JointType_HandRight])) {
-        println("Mao direita na bola");
-        moveObject(ball, joints[KinectPV2.JointType_HandRight].getPosition());
-        image(keyImage, ball.x-keyImage.width , ball.y );
-      }
-      if (holdsObject(ball, joints[KinectPV2.JointType_HandLeft])) {
-        println("Mao esquerda na bola");
-        moveObject(ball, joints[KinectPV2.JointType_HandLeft].getPosition());
+      for (int j = 0; i < gameObjects.length; i++) {
+        
+        image(gameImages[j], gameObjects[j].x , gameObjects[i].y );
+        
+        if (holdsObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandRight])) {
+          println("Mao direita na bola");
+          moveObject(gameObjects[j], joints[KinectPV2.JointType_HandRight].getPosition());
+          image(keyImage, gameObjects[j].x , gameObjects[j].y);
+        }
+        if (holdsObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandLeft])) {
+          println("Mao esquerda na bola");
+          moveObject(gameObjects[j], joints[KinectPV2.JointType_HandLeft].getPosition());
+          image(keyImage, gameObjects[j].x , gameObjects[j].y);
+        }
       }
     }
-    
-    
+
+
   }
 
   fill(255, 0, 0);
@@ -193,8 +208,8 @@ void drawBone(KJoint[] joints, int jointType1, int jointType2) {
   ellipse(0, 0, 25, 25);
   popMatrix();
   line(joints[jointType1].getX(), joints[jointType1].getY(), joints[jointType1].getZ(), joints[jointType2].getX(), joints[jointType2].getY(), joints[jointType2].getZ());
-  
-  
+
+
 }
 
 //draw hand state
@@ -237,14 +252,14 @@ void handState(int handState) {
     break;
   }
 }
-  
-boolean holdsObject(Object object, KJoint joint) {
+
+boolean holdsObject(Object object, PImage image, KJoint joint) {
   PVector vector = joint.getPosition();
   if (joint.getState() != KinectPV2.HandState_Closed) {
     return false;
   }
-  if ((vector.x < object.x + 50 ) && (vector.x > object.x - 50)) {
-     if ((vector.y < object.y + 50 ) && (vector.y > object.y - 50)) {
+  if ((vector.x <= object.x + image.width ) && (vector.x >= object.x )) {
+     if ((vector.y <= object.y + image.height ) && (vector.y >= object.y)) {
        return true;
      }
   }
