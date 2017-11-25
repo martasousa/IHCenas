@@ -32,6 +32,7 @@ KinectPV2 kinect;
 SkeletonPoser poseArmsUp, poseArmsOpen;
 
 PImage keyImage;
+PImage background;
 
 class Object{
   float x, y, z;
@@ -72,9 +73,10 @@ void setup() {
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.ABOVE, KinectPV2.JointType_ElbowLeft);
   poseArmsOpen.addRule(KinectPV2.JointType_HandRight, PoseRule.RIGHT_OF, KinectPV2.JointType_ElbowRight);
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.LEFT_OF, KinectPV2.JointType_ElbowLeft);
-
+  background = loadImage("background.png");
   Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
   keyImage = loadImage("chave.png");
+  background = loadImage("background.png");
   image(keyImage, objectKey.x, objectKey.y);
   gameObjects[i] = objectKey;
   gameImages[i] = keyImage;
@@ -89,7 +91,7 @@ void setup() {
 void draw() {
   background(0);
 
-  image(kinect.getColorImage(), 0, 0, width, height);
+  image(background, 0, 0, width, height);
   
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
 
