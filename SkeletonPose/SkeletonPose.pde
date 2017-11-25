@@ -46,8 +46,8 @@ Object[] gameObjects;
 PImage[] gameImages;
 
 void setup() {
-  gameObjects = new Object[10];
-  gameImages = new PImage[10];
+  gameObjects = new Object[1];
+  gameImages = new PImage[1];
   int i = 0;
   //size(1920, 1080, P3D);
   fullScreen(P3D);
@@ -73,7 +73,7 @@ void setup() {
   poseArmsOpen.addRule(KinectPV2.JointType_HandRight, PoseRule.RIGHT_OF, KinectPV2.JointType_ElbowRight);
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.LEFT_OF, KinectPV2.JointType_ElbowLeft);
 
-  Object objectKey = new Object(width/2, height/4, 0);
+  Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
   keyImage = loadImage("chave.png");
   image(keyImage, objectKey.x, objectKey.y);
   gameObjects[i] = objectKey;
@@ -90,7 +90,6 @@ void draw() {
   background(0);
 
   image(kinect.getColorImage(), 0, 0, width, height);
-  println(gameObjects.length);
   
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
 
@@ -125,16 +124,17 @@ void draw() {
       //println(joints[KinectPV2.JointType_HandRight].getPosition());
       for (int j = 0; i < gameObjects.length; i++) {
         
-        image(gameImages[j], gameObjects[j].x , gameObjects[i].y );
+        image(gameImages[j], gameObjects[j].x , gameObjects[j].y );
+        drawBall(gameObjects[j], gameImages[j]);
         
         if (holdsObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandRight])) {
           println("Mao direita na bola");
-          moveObject(gameObjects[j], joints[KinectPV2.JointType_HandRight].getPosition());
+          moveObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandRight].getPosition());
           image(keyImage, gameObjects[j].x , gameObjects[j].y);
         }
         if (holdsObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandLeft])) {
           println("Mao esquerda na bola");
-          moveObject(gameObjects[j], joints[KinectPV2.JointType_HandLeft].getPosition());
+          moveObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandLeft].getPosition());
           image(keyImage, gameObjects[j].x , gameObjects[j].y);
         }
       }
@@ -222,10 +222,14 @@ void drawHandState(KJoint joint) {
   popMatrix();
 }
 
-void drawBall(Object object){
+void drawBall(Object object, PImage image){
   pushMatrix();
   translate(object.x, object.y, object.z);
-  ellipse(0,0,100,100);
+  ellipse(0,0,10,10);
+  popMatrix();
+  pushMatrix();
+  translate(object.x + image.width, object.y + image.height, object.z);
+  ellipse(0,0,10,10);
   popMatrix();
 }
 
@@ -266,7 +270,7 @@ boolean holdsObject(Object object, PImage image, KJoint joint) {
   return false;
 }
 
-void moveObject(Object object, PVector vector) {
-  object.x = vector.x;
-  object.y = vector.y;
+void moveObject(Object object, PImage image, PVector vector) {
+  object.x = vector.x - image.width/2;
+  object.y = vector.y - image.height/2;
 }
