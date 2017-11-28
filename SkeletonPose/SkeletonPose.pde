@@ -46,22 +46,22 @@ class Object{
   }
 }
 PImage background;
-PImage continue_button = loadImage("continue.png");
-PImage continue_selected = loadImage("continue_selected.png");
-PImage start = loadImage("start.png");
-PImage start_selected = loadImage("start_selected.png");
-PImage sound1 = loadImage("sound1.png");
-PImage sound2 = loadImage("sound2.png");
-PImage sound3 = loadImage("sound3.png");
-PImage sound1_selected = loadImage("sound1_selected.png");
-PImage sound2_selected = loadImage("sound2_selected.png");
-PImage sound3_selected = loadImage("sound3_selected.png");
-PImage muted = loadImage("muted.png");
-PImage muted_selected = loadImage("muted_selected.png");
-PImage settings = loadImage("settings.png");
-PImage settings_selected = loadImage("settings_selected.png");
-PImage exit = loadImage("exit.png");
-PImage exit_selected = loadImage("exit_selected.png");
+PImage continue_button;
+PImage continue_selected;
+PImage start;
+PImage start_selected;
+PImage sound1;
+PImage sound2;
+PImage sound3;
+PImage sound1_selected;
+PImage sound2_selected;
+PImage sound3_selected;
+PImage muted;
+PImage muted_selected;
+PImage settings;
+PImage settings_selected;
+PImage exit;
+PImage exit_selected;
 Object[] gameObjects;
 Object soundButton, settingsButton, exitButton, startButton, continueButton;
 int selectedMargin = 10;
@@ -96,12 +96,32 @@ void setup() {
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.ABOVE, KinectPV2.JointType_ElbowLeft);
   poseArmsOpen.addRule(KinectPV2.JointType_HandRight, PoseRule.RIGHT_OF, KinectPV2.JointType_ElbowRight);
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.LEFT_OF, KinectPV2.JointType_ElbowLeft);
+  
+  //Image loading here
   background = loadImage("background.png");
-  Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
+  continue_button = loadImage("continue.png");
   keyImage = loadImage("chave.png");
   background = loadImage("background.png");
+  continue_selected = loadImage("continue_selected.png");
+  start = loadImage("start.png");
+  start_selected = loadImage("start_selected.png");
+  sound1 = loadImage("sound1.png");
+  sound2 = loadImage("sound2.png");
+  sound3 = loadImage("sound3.png");
+  sound1_selected = loadImage("sound1_selected.png");
+  sound2_selected = loadImage("sound2_selected.png");
+  sound3_selected = loadImage("sound3_selected.png");
+  muted = loadImage("muted.png");
+  muted_selected = loadImage("muted_selected.png");
+  settings = loadImage("settings.png");
+  settings_selected = loadImage("settings_selected.png");
+  exit = loadImage("exit.png");
+  exit_selected = loadImage("exit_selected.png");
+  
+    
+  //Set game objects here
+  Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
   objectKey.setImage(keyImage);
-  image(objectKey.image, objectKey.x, objectKey.y);
   gameObjects[i] = objectKey;
   i ++;
   soundButton = new Object(50, 50, 0);
@@ -114,8 +134,6 @@ void setup() {
   continueButton.setImage(continue_button);
   startButton = new Object(710, 590, 0);
   startButton.setImage(start);
-  
-  
 }
 
 void draw() {
@@ -123,6 +141,11 @@ void draw() {
 
   image(background, 0, 0, width, height);
   image(soundButton.image, soundButton.x, soundButton.y);
+  image(settingsButton.image, settingsButton.x, settingsButton.y);
+  image(exitButton.image, exitButton.x, exitButton.y);
+  image(continueButton.image, continueButton.x, continueButton.y);
+  image(startButton.image, startButton.x, startButton.y);
+
   
   
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
