@@ -31,24 +31,47 @@ KinectPV2 kinect;
 
 SkeletonPoser poseArmsUp, poseArmsOpen;
 
-PImage keyImage;
-PImage background;
-
 class Object{
   float x, y, z;
+  PImage image;
+ 
   Object(float x, float y, float z) {
     this.x = x;
     this.y = y;
     this.z = z;
   }
+  
+  void setImage(PImage image) {
+    this.image = image;
+  }
 }
-
+PImage background;
+PImage continue_button = loadImage("continue.png");
+PImage continue_selected = loadImage("continue_selected.png");
+PImage start = loadImage("start.png");
+PImage start_selected = loadImage("start_selected.png");
+PImage sound1 = loadImage("sound1.png");
+PImage sound2 = loadImage("sound2.png");
+PImage sound3 = loadImage("sound3.png");
+PImage sound1_selected = loadImage("sound1_selected.png");
+PImage sound2_selected = loadImage("sound2_selected.png");
+PImage sound3_selected = loadImage("sound3_selected.png");
+PImage muted = loadImage("muted.png");
+PImage muted_selected = loadImage("muted_selected.png");
+PImage settings = loadImage("settings.png");
+PImage settings_selected = loadImage("settings_selected.png");
+PImage exit = loadImage("exit.png");
+PImage exit_selected = loadImage("exit_selected.png");
 Object[] gameObjects;
-PImage[] gameImages;
+Object soundButton, settingsButton, exitButton, startButton, continueButton;
+int selectedMargin = 10;
 
 void setup() {
-  gameObjects = new Object[1];
-  gameImages = new PImage[1];
+  
+  PImage keyImage;
+  
+  gameObjects = new Object[1]; // Set to the number of objects present in this project
+  
   int i = 0;
   //size(1920, 1080, P3D);
   fullScreen(P3D);
@@ -77,21 +100,30 @@ void setup() {
   Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
   keyImage = loadImage("chave.png");
   background = loadImage("background.png");
-  image(keyImage, objectKey.x, objectKey.y);
+  objectKey.setImage(keyImage);
+  image(objectKey.image, objectKey.x, objectKey.y);
   gameObjects[i] = objectKey;
-  gameImages[i] = keyImage;
   i ++;
+  soundButton = new Object(50, 50, 0);
+  soundButton.setImage(sound3);
+  settingsButton = new Object(width-150, height - 150, 0);
+  settingsButton.setImage(settings);
+  exitButton = new Object(50, height -150, 0);
+  exitButton.setImage(exit);
+  continueButton = new Object(710, 350, 0);
+  continueButton.setImage(continue_button);
+  startButton = new Object(710, 590, 0);
+  startButton.setImage(start);
   
   
-
-
-
 }
 
 void draw() {
   background(0);
 
   image(background, 0, 0, width, height);
+  image(soundButton.image, soundButton.x, soundButton.y);
+  
   
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
 
@@ -126,18 +158,17 @@ void draw() {
       //println(joints[KinectPV2.JointType_HandRight].getPosition());
       for (int j = 0; i < gameObjects.length; i++) {
         
-        image(gameImages[j], gameObjects[j].x , gameObjects[j].y );
-        drawBall(gameObjects[j], gameImages[j]);
+        image(gameObjects[j].image, gameObjects[j].x , gameObjects[j].y );
         
-        if (holdsObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandRight])) {
+        if (holdsObject(gameObjects[j], gameObjects[j].image, joints[KinectPV2.JointType_HandRight])) {
           println("Mao direita na bola");
-          moveObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandRight].getPosition());
-          image(keyImage, gameObjects[j].x , gameObjects[j].y);
+          moveObject(gameObjects[j], gameObjects[j].image, joints[KinectPV2.JointType_HandRight].getPosition());
+          image(gameObjects[j].image, gameObjects[j].x , gameObjects[j].y);
         }
-        if (holdsObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandLeft])) {
+        if (holdsObject(gameObjects[j], gameObjects[j].image, joints[KinectPV2.JointType_HandLeft])) {
           println("Mao esquerda na bola");
-          moveObject(gameObjects[j], gameImages[j], joints[KinectPV2.JointType_HandLeft].getPosition());
-          image(keyImage, gameObjects[j].x , gameObjects[j].y);
+          moveObject(gameObjects[j], gameObjects[j].image, joints[KinectPV2.JointType_HandLeft].getPosition());
+          image(gameObjects[j].image, gameObjects[j].x , gameObjects[j].y);
         }
       }
     }
