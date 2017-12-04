@@ -92,6 +92,7 @@ PImage settings;
 PImage settings_selected;
 PImage exit;
 PImage exit_selected;
+PImage mum;
 
 Object[] gameObjects;
 Object[] gameButtons;
@@ -170,6 +171,8 @@ void setup() {
   settings_selected = loadImage("settings_selected.png");
   exit = loadImage("exit.png");
   exit_selected = loadImage("exit_selected.png");
+  mum = loadImage("Mae.png");
+  
   
   //Set game backgrounds here
   Object firstScreen = new Object(0,0,0);
@@ -292,7 +295,7 @@ void draw() {
   // Draw background
   background(0);
   
-  
+  image(mum, 500,500);
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
 
   //individual JOINTS
