@@ -73,8 +73,12 @@ class Object{
     return this.active;
   }
   
-  void setActiveScreens(int screen) {
-    this.activeScreens = append(this.activeScreens, screen);
+  void initializeArray(int num_pos) {
+    this.activeScreens = new int[num_pos];
+  }
+  
+  void setActiveScreens(int screen, int pos) {
+    this.activeScreens[pos] = screen;
   }
   int[] getActiveScreens() {
     return this.activeScreens;
@@ -161,62 +165,71 @@ void setup() {
   Object tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario0.png"));
   tempBackground.setActive(true);
-  tempBackground.setActiveScreens(0);
-  gameBackgrounds = (Object[]) append(gameBackgrounds, tempBackground);
+  tempBackground.initializeArray(1);
+  tempBackground.setActiveScreens(0,0);
+  gameBackgrounds[0] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario1.png"));
   tempBackground.setActive(false);
-  tempBackground.setActiveScreens(1);
-  gameBackgrounds = (Object[]) append(gameBackgrounds, tempBackground);
+  tempBackground.initializeArray(1);
+  tempBackground.setActiveScreens(1,0);
+  gameBackgrounds[1] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario2.png"));
   tempBackground.setActive(false);
-  tempBackground.setActiveScreens(2);
-  gameBackgrounds = (Object[]) append(gameBackgrounds, tempBackground);
+  tempBackground.initializeArray(1);
+  tempBackground.setActiveScreens(2,0);
+  gameBackgrounds[2] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario3.png"));
   tempBackground.setActive(false);
-  tempBackground.setActiveScreens(3);
-  gameBackgrounds = (Object[]) append(gameBackgrounds, tempBackground);
+  tempBackground.initializeArray(1);
+  tempBackground.setActiveScreens(3,0);
+  gameBackgrounds[3] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario4.png"));
   tempBackground.setActive(false);
-  tempBackground.setActiveScreens(4);
-  gameBackgrounds = (Object[]) append(gameBackgrounds, tempBackground);
+  tempBackground.initializeArray(1);
+  tempBackground.setActiveScreens(4,0);
+  gameBackgrounds[4] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario5.png"));
   tempBackground.setActive(false);
-  tempBackground.setActiveScreens(5);
-  gameBackgrounds = (Object[]) append(gameBackgrounds, tempBackground);
+  tempBackground.initializeArray(1);
+  tempBackground.setActiveScreens(5,0);
+  gameBackgrounds[5] = tempBackground;
   
   
   //Set game characters
   Object tempCharacter = new Object(500, 500, 0);
   tempCharacter.setImage(loadImage("mae.png"));
   tempCharacter.setActive(false);
-  tempCharacter.setActiveScreens(1);
-  gameCharacters = (Object[]) append(gameCharacters, tempCharacter);
+  tempBackground.initializeArray(1);
+  tempCharacter.setActiveScreens(1,0);
+  gameCharacters[0] = tempCharacter;
   
   
   tempCharacter = new Object(500, 500, 0);
   tempCharacter.setImage(loadImage("lobo.png"));
   tempCharacter.setActive(false);
-  tempCharacter.setActiveScreens(2);
-  gameCharacters = (Object[]) append(gameCharacters, tempCharacter);
+  tempBackground.initializeArray(1);
+  tempCharacter.setActiveScreens(2,0);
+  gameCharacters[1] = tempCharacter;
   
   
   //Set game objects here
   Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
   objectKey.setImage(loadImage("chave.png"));
   objectKey.setActive(false);
-  objectKey.setActiveScreens(4);
-  objectKey.setActiveScreens(5);
-  gameObjects = (Object[]) append(gameObjects, objectKey);
+  tempBackground.initializeArray(2);
+  objectKey.setActiveScreens(4, 0);
+  objectKey.setActiveScreens(5, 1);
+  gameCharacters[2] = tempCharacter;
   
   
   continue_button = loadImage("continue.png");
@@ -241,42 +254,42 @@ void setup() {
   Object soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound0);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState = (Object[]) append(soundButtonState, soundButtonTemp);
+  soundButtonState[0] = soundButtonTemp;
   
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound0_selected);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState = (Object[]) append(soundButtonState, soundButtonTemp);
+  soundButtonState[1] = soundButtonTemp;
   
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound1);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState = (Object[]) append(soundButtonState, soundButtonTemp);
+  soundButtonState[2] = soundButtonTemp;
   
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound1_selected);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState = (Object[]) append(soundButtonState, soundButtonTemp);
+  soundButtonState[3] = soundButtonTemp;
   
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound2);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState = (Object[]) append(soundButtonState, soundButtonTemp);
+  soundButtonState[4] = soundButtonTemp;
   
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound2_selected);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState = (Object[]) append(soundButtonState, soundButtonTemp);
+  soundButtonState[5] = soundButtonTemp;
   
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound3);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState = (Object[]) append(soundButtonState, soundButtonTemp);
+  soundButtonState[6] = soundButtonTemp;
   
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound3_selected);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState = (Object[]) append(soundButtonState, soundButtonTemp);
+  soundButtonState[7] = soundButtonTemp;
   
   
   settingsButton = new Object(width-150, height - 150, 0);
@@ -695,7 +708,7 @@ void moveObject(Object object, PImage image, PVector vector) {
 
 void setActiveScreens(int screen) {
   manageActiveObjects(gameObjects, screen);
-  manageActiveObjects(gameButtons, screen);
+  manageActiveObjects(gameCharacters, screen);
   manageActiveObjects(gameBackgrounds, screen);
 }
 
