@@ -73,12 +73,8 @@ class Object{
     return this.active;
   }
   
-  void initializeArray(int num_pos) {
-    this.activeScreens = new int[num_pos];
-  }
-  
-  void setActiveScreens(int screen, int pos) {
-    this.activeScreens[pos] = screen;
+  void setActiveScreens(int screen) {
+    this.activeScreens = append(this.activeScreens, screen);
   }
   int[] getActiveScreens() {
     return this.activeScreens;
@@ -165,43 +161,37 @@ void setup() {
   Object tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario0.png"));
   tempBackground.setActive(true);
-  tempBackground.initializeArray(1);
-  tempBackground.setActiveScreens(0,0);
+  tempBackground.setActiveScreens(0);
   gameBackgrounds[0] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario1.png"));
   tempBackground.setActive(false);
-  tempBackground.initializeArray(1);
-  tempBackground.setActiveScreens(1,0);
+  tempBackground.setActiveScreens(1);
   gameBackgrounds[1] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario2.png"));
   tempBackground.setActive(false);
-  tempBackground.initializeArray(1);
-  tempBackground.setActiveScreens(2,0);
+  tempBackground.setActiveScreens(2);
   gameBackgrounds[2] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario3.png"));
   tempBackground.setActive(false);
-  tempBackground.initializeArray(1);
-  tempBackground.setActiveScreens(3,0);
+  tempBackground.setActiveScreens(3);
   gameBackgrounds[3] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario4.png"));
   tempBackground.setActive(false);
-  tempBackground.initializeArray(1);
-  tempBackground.setActiveScreens(4,0);
+  tempBackground.setActiveScreens(4);
   gameBackgrounds[4] = tempBackground;
   
   tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario5.png"));
   tempBackground.setActive(false);
-  tempBackground.initializeArray(1);
-  tempBackground.setActiveScreens(5,0);
+  tempBackground.setActiveScreens(5);
   gameBackgrounds[5] = tempBackground;
   
   
@@ -209,16 +199,14 @@ void setup() {
   Object tempCharacter = new Object(500, 500, 0);
   tempCharacter.setImage(loadImage("mae.png"));
   tempCharacter.setActive(false);
-  tempBackground.initializeArray(1);
-  tempCharacter.setActiveScreens(1,0);
+  tempCharacter.setActiveScreens(1);
   gameCharacters[0] = tempCharacter;
   
   
   tempCharacter = new Object(500, 500, 0);
   tempCharacter.setImage(loadImage("lobo.png"));
   tempCharacter.setActive(false);
-  tempBackground.initializeArray(1);
-  tempCharacter.setActiveScreens(2,0);
+  tempCharacter.setActiveScreens(2);
   gameCharacters[1] = tempCharacter;
   
   
@@ -226,9 +214,8 @@ void setup() {
   Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
   objectKey.setImage(loadImage("chave.png"));
   objectKey.setActive(false);
-  tempBackground.initializeArray(2);
-  objectKey.setActiveScreens(4, 0);
-  objectKey.setActiveScreens(5, 1);
+  objectKey.setActiveScreens(4);
+  objectKey.setActiveScreens(5);
   gameCharacters[2] = tempCharacter;
   
   
@@ -708,7 +695,7 @@ void moveObject(Object object, PImage image, PVector vector) {
 
 void setActiveScreens(int screen) {
   manageActiveObjects(gameObjects, screen);
-  manageActiveObjects(gameCharacters, screen);
+  manageActiveObjects(gameButtons, screen);
   manageActiveObjects(gameBackgrounds, screen);
 }
 
