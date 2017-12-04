@@ -122,15 +122,15 @@ int screen = 0; // This will allow us to change screens... Hopefully
 
 void setup() {
   
-  PImage keyImage;
-  
-  //gameObjects = new Object[1]; // Set to the number of objects present in this project (First screen)
-  //gameButtons = new Object[5]; // Set to the number of buttons present in this project (First screen)
+
+  gameObjects = new Object[1]; // Set to the number of objects present in this project (First screen)
+  gameButtons = new Object[5]; // Set to the number of buttons present in this project (First screen)
   soundButtonState = new Object[8]; // Set to the number of possible states for this button
   settingsButtonState = new Object[2]; // Set to the number of possible states for this button
   exitButtonState = new Object[2]; // Set to the number of possible states for this button
   startButtonState = new Object[2]; // Set to the number of possible states for this button
   continueButtonState = new Object[2]; // Set to the number of possible states for this button
+  gameBackgrounds = new Object[6]; //Set the number of backgrounds
   
   int j = 0;
   //size(1920, 1080, P3D);
