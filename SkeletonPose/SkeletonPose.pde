@@ -122,7 +122,7 @@ int screen = 0; // This will allow us to change screens... Hopefully
 
 void setup() {
   
-
+  println("Started setup");
   gameObjects = new Object[1]; // Set to the number of objects present in this project (First screen)
   gameButtons = new Object[5]; // Set to the number of buttons present in this project (First screen)
   soundButtonState = new Object[8]; // Set to the number of possible states for this button
@@ -337,6 +337,7 @@ void setup() {
   file = new SoundFile(this, "sound.wav");
   file.play();
   file.loop();
+  println("Finished Setup");
 }
 
 void draw() {
@@ -347,7 +348,6 @@ void draw() {
   for(int i = 0; i < gameBackgrounds.length; i++) {
     if (gameBackgrounds[i].getActive()){
       image(gameBackgrounds[i].getImage(), 0, 0);
-      break;
     }
   }
   
