@@ -26,6 +26,7 @@ https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx
  
  //TODO: Timer com ajuda
  //Mudar o nome do muted para sound0
+ //Always present: som, 
 
 import KinectPV2.KJoint;
 import KinectPV2.*;
@@ -38,6 +39,8 @@ class Object{
   float x, y, z;
   PImage image;
   String buttonType;
+  boolean active;
+  int[] activeScreens;
  
   Object(float x, float y, float z) {
     this.x = x;
@@ -56,9 +59,23 @@ class Object{
   String getButtonType() {
     return this.buttonType;
   }
+  
+  void setActive(boolean active) {
+    this.active = active;
+  }
+  
+  boolean getActive() {
+    return this.active;
+  }
+  
+  void setActiveScreens(int[] screens) {
+    this.activeScreens = screens;
+  }
+  int[] getActiveScreens() {
+    return this.activeScreens;
+  }
 }
 
-PImage background;
 PImage continue_button;
 PImage continue_selected;
 PImage start;
@@ -75,8 +92,10 @@ PImage settings;
 PImage settings_selected;
 PImage exit;
 PImage exit_selected;
+
 Object[] gameObjects;
 Object[] gameButtons;
+Object[] gameBackgrounds;
 Object[] soundButtonState;
 Object[] continueButtonState;
 Object[] exitButtonState;
@@ -90,13 +109,17 @@ int sound_state = 0;
 int other_state = 0;
 
 boolean rightHand_open = true; // true : Open, false: Closed
+boolean leftHand_open = true;
+
+int screen = 0; // This will allow us to change screens... Hopefully
 
 void setup() {
   
   PImage keyImage;
   
-  gameObjects = new Object[1]; // Set to the number of objects present in this project
-  gameButtons = new Object[5]; // Set to the number of buttons present in this project
+  gameObjects = new Object[1]; // Set to the number of objects present in this project (First screen)
+  gameButtons = new Object[5]; // Set to the number of buttons present in this project (First screen)
+  gameBackgrounds = new Object[1]; // Set to the number of backgrounds
   soundButtonState = new Object[8]; // Set to the number of possible states for this button
   settingsButtonState = new Object[2]; // Set to the number of possible states for this button
   exitButtonState = new Object[2]; // Set to the number of possible states for this button
@@ -129,10 +152,9 @@ void setup() {
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.LEFT_OF, KinectPV2.JointType_ElbowLeft);
   
   //Image loading here
-  background = loadImage("background.png");
+  PImage starting_background = loadImage("background.png");
   continue_button = loadImage("continue.png");
   keyImage = loadImage("chave.png");
-  background = loadImage("background.png");
   continue_selected = loadImage("continue_selected.png");
   start = loadImage("start.png");
   start_selected = loadImage("start_selected.png");
@@ -149,6 +171,12 @@ void setup() {
   exit = loadImage("exit.png");
   exit_selected = loadImage("exit_selected.png");
   
+  //Set game backgrounds here
+  Object firstScreen = new Object(0,0,0);
+  firstScreen.setImage(starting_background);
+  firstScreen.setActive(true);
+  gameBackgrounds[0] = firstScreen;
+    
     
   //Set game objects here
   Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
@@ -263,7 +291,7 @@ void draw() {
   
   // Draw background
   background(0);
-  image(background, 0, 0, width, height);
+  
   
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
 
@@ -370,6 +398,61 @@ void draw() {
             // Do whatever here...
           }
         }
+        else if (hoversObject(gameButtons[k], gameButtons[k].image , joints[KinectPV2.JointType_HandLeft])) { 
+          if (gameButtons[k].getButtonType().equals("sound")) {
+            gameButtons[k] = soundButtonState[sound_state + 1];
+          }
+          
+          // If the button is the settings button
+          else if (gameButtons[k].getButtonType().equals("settings")){
+            gameButtons[k] = settingsButtonState[other_state + 1];
+          }
+          // If the button is the continue button
+          else if (gameButtons[k].getButtonType().equals("continue")){
+            gameButtons[k] = continueButtonState[other_state + 1];
+          }
+          // If the button is the exit button
+          else if (gameButtons[k].getButtonType().equals("exit")){
+            gameButtons[k] = exitButtonState[other_state + 1];
+          }
+           // If the button is the start button
+          else if (gameButtons[k].getButtonType().equals("start")){
+            gameButtons[k] = startButtonState[other_state + 1];
+          }
+          
+          leftHand_open = true;
+        }
+         // HERE WE DECIDE WHAT TO DO WHEN SOMEONE SELECTS IT
+        else if (holdsObject(gameButtons[k], gameButtons[k].image, joints[KinectPV2.JointType_HandLeft]) && (leftHand_open == true)) { 
+          leftHand_open = false;
+          // If the button is the sound button
+          if (gameButtons[k].getButtonType().equals("sound")) {
+            sound_state += 2;
+            if (sound_state >= 8) {
+              sound_state = 0;
+            }
+            // We change the button image
+            gameButtons[k] = soundButtonState[sound_state];
+          }
+          
+          // If the button is the settings button
+          else if (gameButtons[k].getButtonType().equals("settings")){
+            // Do whatever here....
+          }
+          // If the button is the continue button
+          else if (gameButtons[k].getButtonType().equals("continue")){
+            // Do whatever here....
+          }
+          // If the button is the exit button
+          else if (gameButtons[k].getButtonType().equals("exit")){
+            // Exit the game
+            exit();
+          }
+           // If the button is the start button
+          else if (gameButtons[k].getButtonType().equals("start")){
+            // Do whatever here...
+          }
+        }
         //Return them to 'normal' state
         else {
           if (gameButtons[k].getButtonType().equals("sound")) {
@@ -394,6 +477,7 @@ void draw() {
           }
           
           rightHand_open = true;
+          leftHand_open = true;
         }
       }
     }
@@ -542,4 +626,23 @@ boolean hoversObject(Object object, PImage image, KJoint joint) {
 void moveObject(Object object, PImage image, PVector vector) {
   object.x = vector.x - image.width/2;
   object.y = vector.y - image.height/2;
+}
+
+void setActiveScreen(int screen) {
+  manageActiveObjects(gameObjects, screen);
+  manageActiveObjects(gameButtons, screen);
+  manageActiveObjects(gameBackgrounds, screen);
+}
+
+void manageActiveObjects(Object[] objects, int screen) {
+  for (int i = 0; i < objects.length; i++) {
+    int[] activeScreens = objects[i].getActiveScreens();
+    for (int j = 0; j < activeScreens.length; j++) {
+      if (screen == activeScreens[j]) {
+        objects[i].setActive(true);
+      } else {
+        objects[i].setActive(false);
+      }
+    }
+  }
 }
