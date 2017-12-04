@@ -30,6 +30,7 @@ https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx
 
 import KinectPV2.KJoint;
 import KinectPV2.*;
+import processing.sound.*;
 
 KinectPV2 kinect;
 
@@ -52,6 +53,10 @@ class Object{
     this.image = image;
   }
   
+  PImage getImage() {
+    return this.image;
+  }
+  
   void setButtonType(String name) {
     this.buttonType = name;
   }
@@ -68,8 +73,8 @@ class Object{
     return this.active;
   }
   
-  void setActiveScreens(int[] screens) {
-    this.activeScreens = screens;
+  void setActiveScreens(int screen) {
+    this.activeScreens = append(this.activeScreens, screen);
   }
   int[] getActiveScreens() {
     return this.activeScreens;
@@ -92,6 +97,7 @@ PImage settings;
 PImage settings_selected;
 PImage exit;
 PImage exit_selected;
+SoundFile file;
 
 Object[] gameObjects;
 Object[] gameButtons;
@@ -101,6 +107,7 @@ Object[] continueButtonState;
 Object[] exitButtonState;
 Object[] settingsButtonState;
 Object[] startButtonState;
+Object[] gameCharacters;
 
 Object soundButton, settingsButton, exitButton, startButton, continueButton;
 
@@ -115,18 +122,17 @@ int screen = 0; // This will allow us to change screens... Hopefully
 
 void setup() {
   
-  PImage keyImage;
-  
+  println("Started setup");
   gameObjects = new Object[1]; // Set to the number of objects present in this project (First screen)
   gameButtons = new Object[5]; // Set to the number of buttons present in this project (First screen)
-  gameBackgrounds = new Object[1]; // Set to the number of backgrounds
   soundButtonState = new Object[8]; // Set to the number of possible states for this button
   settingsButtonState = new Object[2]; // Set to the number of possible states for this button
   exitButtonState = new Object[2]; // Set to the number of possible states for this button
   startButtonState = new Object[2]; // Set to the number of possible states for this button
   continueButtonState = new Object[2]; // Set to the number of possible states for this button
+  gameBackgrounds = new Object[6]; //Set the number of backgrounds
   
-  int i = 0, j = 0;
+  int j = 0;
   //size(1920, 1080, P3D);
   fullScreen(P3D);
 
@@ -151,10 +157,69 @@ void setup() {
   poseArmsOpen.addRule(KinectPV2.JointType_HandRight, PoseRule.RIGHT_OF, KinectPV2.JointType_ElbowRight);
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.LEFT_OF, KinectPV2.JointType_ElbowLeft);
   
-  //Image loading here
-  PImage starting_background = loadImage("background.png");
+  //Backgrounds loading here
+  Object tempBackground = new Object(0, 0, 0);
+  tempBackground.setImage(loadImage("cenario0.png"));
+  tempBackground.setActive(true);
+  tempBackground.setActiveScreens(0);
+  gameBackgrounds[0] = tempBackground;
+  
+  tempBackground = new Object(0, 0, 0);
+  tempBackground.setImage(loadImage("cenario1.png"));
+  tempBackground.setActive(false);
+  tempBackground.setActiveScreens(1);
+  gameBackgrounds[1] = tempBackground;
+  
+  tempBackground = new Object(0, 0, 0);
+  tempBackground.setImage(loadImage("cenario2.png"));
+  tempBackground.setActive(false);
+  tempBackground.setActiveScreens(2);
+  gameBackgrounds[2] = tempBackground;
+  
+  tempBackground = new Object(0, 0, 0);
+  tempBackground.setImage(loadImage("cenario3.png"));
+  tempBackground.setActive(false);
+  tempBackground.setActiveScreens(3);
+  gameBackgrounds[3] = tempBackground;
+  
+  tempBackground = new Object(0, 0, 0);
+  tempBackground.setImage(loadImage("cenario4.png"));
+  tempBackground.setActive(false);
+  tempBackground.setActiveScreens(4);
+  gameBackgrounds[4] = tempBackground;
+  
+  tempBackground = new Object(0, 0, 0);
+  tempBackground.setImage(loadImage("cenario5.png"));
+  tempBackground.setActive(false);
+  tempBackground.setActiveScreens(5);
+  gameBackgrounds[5] = tempBackground;
+  
+  
+  //Set game characters
+  Object tempCharacter = new Object(500, 500, 0);
+  tempCharacter.setImage(loadImage("mae.png"));
+  tempCharacter.setActive(false);
+  tempCharacter.setActiveScreens(1);
+  gameCharacters[0] = tempCharacter;
+  
+  
+  tempCharacter = new Object(500, 500, 0);
+  tempCharacter.setImage(loadImage("lobo.png"));
+  tempCharacter.setActive(false);
+  tempCharacter.setActiveScreens(2);
+  gameCharacters[1] = tempCharacter;
+  
+  
+  //Set game objects here
+  Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
+  objectKey.setImage(loadImage("chave.png"));
+  objectKey.setActive(false);
+  objectKey.setActiveScreens(4);
+  objectKey.setActiveScreens(5);
+  gameCharacters[2] = tempCharacter;
+  
+  
   continue_button = loadImage("continue.png");
-  keyImage = loadImage("chave.png");
   continue_selected = loadImage("continue_selected.png");
   start = loadImage("start.png");
   start_selected = loadImage("start_selected.png");
@@ -171,25 +236,8 @@ void setup() {
   exit = loadImage("exit.png");
   exit_selected = loadImage("exit_selected.png");
   
-  //Set game backgrounds here
-  Object firstScreen = new Object(0,0,0);
-  firstScreen.setImage(starting_background);
-  firstScreen.setActive(true);
-  gameBackgrounds[0] = firstScreen;
-    
-    
-  //Set game objects here
-  Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
-  objectKey.setImage(keyImage);
-  gameObjects[i] = objectKey;
-  i ++;
-  
   
   //Set game buttons here
-  soundButton = new Object(50, 50, 0);
-  soundButton.setImage(sound3);
-  soundButton.setButtonType("sound");
-  
   Object soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound0);
   soundButtonTemp.setButtonType("sound");
@@ -285,6 +333,11 @@ void setup() {
   j++;
   gameButtons[j] = startButton;
   
+  // Load a soundfile from the /data folder of the sketch and play it back
+  file = new SoundFile(this, "sound.wav");
+  file.play();
+  file.loop();
+  println("Finished Setup");
 }
 
 void draw() {
@@ -292,6 +345,17 @@ void draw() {
   // Draw background
   background(0);
   
+  for(int i = 0; i < gameBackgrounds.length; i++) {
+    if (gameBackgrounds[i].getActive()){
+      image(gameBackgrounds[i].getImage(), 0, 0);
+    }
+  }
+  
+  for (int i = 0; i < gameObjects.length; i++) {
+    if (gameObjects[i].getActive()){
+      image(gameObjects[i].getImage(), gameObjects[i].x, gameObjects[i].y);
+    }
+  }
   
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
 
@@ -386,7 +450,7 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons[k].getButtonType().equals("continue")){
-            // Do whatever here....
+            screen += 1;
           }
           // If the button is the exit button
           else if (gameButtons[k].getButtonType().equals("exit")){
@@ -441,7 +505,7 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons[k].getButtonType().equals("continue")){
-            // Do whatever here....
+            screen += 1;
           }
           // If the button is the exit button
           else if (gameButtons[k].getButtonType().equals("exit")){
@@ -481,6 +545,7 @@ void draw() {
         }
       }
     }
+    setActiveScreens(screen);
   }
 
   fill(255, 0, 0);
@@ -628,7 +693,7 @@ void moveObject(Object object, PImage image, PVector vector) {
   object.y = vector.y - image.height/2;
 }
 
-void setActiveScreen(int screen) {
+void setActiveScreens(int screen) {
   manageActiveObjects(gameObjects, screen);
   manageActiveObjects(gameButtons, screen);
   manageActiveObjects(gameBackgrounds, screen);
