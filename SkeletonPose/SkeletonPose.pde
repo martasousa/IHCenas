@@ -260,8 +260,9 @@ void setup() {
 }
 
 void draw() {
+  
+  // Draw background
   background(0);
-
   image(background, 0, 0, width, height);
   
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
@@ -394,12 +395,8 @@ void draw() {
           
           rightHand_open = true;
         }
-
-        }
       }
     }
-
-
   }
 
   fill(255, 0, 0);
