@@ -835,19 +835,23 @@ void moveObject(Object object, PImage image, PVector vector) {
   object.setCoordinates((vector.x - image.width/2), (vector.y - image.height/2));
 }
 
-void setActiveScreen(int screen) {
-  manageActiveObjects(gameObjects, screen);
-  manageActiveObjects(gameBackgrounds, screen);
-  manageActiveObjects(gameButtons, screen);
-  manageActiveObjects(gameCharacters, screen);
+void setActiveScreen(int sc) {
+  manageActiveObjects(gameObjects, sc);
+  manageActiveObjects(gameBackgrounds, sc);
+  manageActiveObjects(gameButtons, sc);
+  manageActiveObjects(gameCharacters, sc);
 }
 
-void manageActiveObjects(ArrayList<Object> objects, int screen) {
+void manageActiveObjects(ArrayList<Object> objects, int sc) {
+  print("Chamou manageActiveObjects com screen: ");
+  println(sc);
+  print("Estamo no screen: ");
+  print(screen);
   for (int i = 0; i < objects.size(); i++) {
-    ArrayList<Integer> activeScreens = objects.get(i).getActiveScreens();
-    for (int activeScreen : activeScreens)
+
+    for (int activeScreen : objects.get(i).getActiveScreens())
     {
-      if (screen == activeScreen || activeScreen == -1) {
+      if (sc == activeScreen || activeScreen == -1) {
         objects.get(i).setActive(true);
       } else {
         objects.get(i).setActive(false);
