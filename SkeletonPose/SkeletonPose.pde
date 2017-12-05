@@ -475,6 +475,8 @@ void draw() {
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             if (startScenarioTimer == 0) {
+              println(startScenarioTimer);
+              println(millis());
               startScenarioTimer = millis();
               screen += 1;
               if (screen > 5) {
@@ -483,6 +485,8 @@ void draw() {
             } else {
               if (startScenarioTimer + changeScreenAfter >= millis()) {
                 startScenarioTimer = millis();
+                println(startScenarioTimer);
+                println(millis());
                 screen += 1;
                 if (screen > 5) {
                   screen = 0;
