@@ -483,7 +483,8 @@ void draw() {
           moveObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft].getPosition());
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
         }
-        dropObject(gameObjects.get(j));
+        if (dropObject(gameObjects.get(j)))
+          screen += 1;
       }
       for (int k = 0; k < gameButtons.size(); k++) {
         
@@ -911,11 +912,13 @@ void showHelp() {
   }
 }
 
-void dropObject(Object object) {
+boolean dropObject(Object object) {
   if (object.getButtonType().equals("cesta")){
-    if (object.y < soundButton.y) {
+    if (object.y < (soundButton.y + soundButton.getImage().height)) {
       object.x = 1600;
       object.y = 30;
+      return true;
     }
   }
+  return false;
 }
