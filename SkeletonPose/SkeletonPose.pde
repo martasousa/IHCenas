@@ -465,6 +465,9 @@ void draw() {
       }
       for (int k = 0; k < gameButtons.size(); k++) {
         
+        if (gameButtons.get(k).getActive())
+          image(gameButtons.get(k).getImage(), gameButtons.get(k).x , gameButtons.get(k).y);
+      
 
         // HERE WE HIGHLIGHT THE BUTTON WHEN SOMEONE HOVERS IT
         if (hoversObject(gameButtons.get(k), gameButtons.get(k).getImage() , joints[KinectPV2.JointType_HandRight]) && gameButtons.get(k).getActive()) { 
