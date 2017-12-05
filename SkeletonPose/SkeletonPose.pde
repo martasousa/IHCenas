@@ -2,28 +2,6 @@
 /*
 https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx
 
- KinectPV2.JointType_Head
- KinectPV2.JointType_Neck
- KinectPV2.JointType_SpineShoulder
- KinectPV2.JointType_SpineMid
- KinectPV2.JointType_SpineBase
-
- // Right Arm
- KinectPV2.JointType_ShoulderRight
- KinectPV2.JointType_ElbowRight
- KinectPV2.JointType_WristRight
- KinectPV2.JointType_HandRight
- KinectPV2.JointType_ThumbRight
- KinectPV2.JointType_HandTipRight
-
- // Right Leg
- KinectPV2.JointType_HipRight
- KinectPV2.JointType_KneeRight
- KinectPV2.JointType_AnkleRight
- KinectPV2.JointType_FootRight
-
- */
- 
  //TODO: Timer com ajuda
  //Mudar o nome do muted para sound0
  //Always present: som, 
@@ -914,12 +892,15 @@ void showHelp() {
 }
 
 boolean dropObject(Object object) {
-  if (object.getButtonType().equals("cesta")){
+  if (object.getActive() == false)
+    return false;
+    
+  if (object.getButtonType().equals("cesta") && screen == 1){
     if (object.y < (soundButton.y + soundButton.getImage().height)) {
       object.x = 1600;
       object.y = 30;
       return true;
     }
   }
-  return false;g
+  return false;
 }
