@@ -997,11 +997,13 @@ boolean dropObject(Object object) {
         return true;
       }
   } else if (object.getButtonType().equals("chave") && (screen == 5)){
-    if ((object.y < 880 ) && (object.y > 600) {
-      if ((object.x > 1000) && (object.x < 1600))
+    if ((object.y < 880 ) && (object.y > 600)) {
+      if ((object.x > 1200) && (object.x < 1500))
       {
         return true;
       } 
+    }
+  }
   
   return false;
 }
