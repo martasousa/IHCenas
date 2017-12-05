@@ -683,6 +683,9 @@ void draw() {
           leftHand_open = true;
         }
       }
+      if (moveOn(joints[KinectPV2.JointType_HandRight], joints[KinectPV2.JointType_HandLeft])) {
+        changeScreen(3);
+      }
     }
     showHelp();
   }
@@ -918,5 +921,23 @@ boolean dropObject(Object object) {
       return true;
     }
   }
+  return false;
+}
+
+boolean moveOn(KJoint right, KJoint left) {
+  if (screen == 2) {
+    PVector rhand = right.getPosition();
+    PVector lhand = left.getPosition();
+    if (right.getState() != KinectPV2.HandState_Closed || left.getState() != KinectPV2.HandState_Closed) {
+      return false;
+    }
+    if (rhand.y  - lhand.y <= 50 ) {
+      if (rhand.x - lhand.x <= 50) {
+        return true;
+      }
+    }
+    
+  }
+    
   return false;
 }
