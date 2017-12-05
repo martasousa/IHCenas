@@ -86,6 +86,7 @@ ArrayList<Object> gameButtons;
 ArrayList<Object> gameBackgrounds;
 ArrayList<Object> gameCharacters;
 ArrayList<Object> gameHelps;
+ArrayList<Object> gameMissions;
 
 Object[] soundButtonState;
 
@@ -373,6 +374,31 @@ void setup() {
   helpPopUp.setActive(false);
   gameHelps.add(helpPopUp);
   
+  Object missionPopUp = new Object(512, 950, 0);
+  missionPopUp.setImage(loadImage("missao1.png"));
+  missionPopUp.setActiveScreens(1);
+  missionPopUp.setActive(false);
+  gameMissions.add(missionPopUp);
+  
+  missionPopUp = new Object(512, 950, 0);
+  missionPopUp.setImage(loadImage("Missao2.png"));
+  missionPopUp.setActiveScreens(2);
+  missionPopUp.setActive(false);
+  gameMissions.add(missionPopUp);
+  
+  missionPopUp = new Object(512, 950, 0);
+  missionPopUp.setImage(loadImage("Missao2.png"));
+  missionPopUp.setActiveScreens(3);
+  missionPopUp.setActive(false);
+  gameMissions.add(missionPopUp);
+  
+   missionPopUp = new Object(512, 950, 0);
+  missionPopUp.setImage(loadImage("Missao2.png"));
+  missionPopUp.setActiveScreens(4);
+  missionPopUp.setActive(false);
+  gameMissions.add(missionPopUp);
+  
+  
   
   
   // Load a soundfile from the /data folder of the sketch and play it back
@@ -397,6 +423,12 @@ void draw() {
   for (Object gameCharacter : gameCharacters) {
     if (gameCharacter.getActive()) {
       image(gameCharacter.getImage(), gameCharacter.x, gameCharacter.y);
+    }
+  }
+  
+  for (Object gameMission : gameMissions) {
+    if (gameMission.getActive()) {
+      image(gameMission.getImage(), gameMission.x, gameMission.y);
     }
   }
   
@@ -839,6 +871,7 @@ void setActiveScreen() {
   manageActiveObjects(gameBackgrounds);
   manageActiveObjects(gameButtons);
   manageActiveObjects(gameCharacters);
+  manageActiveObjects(gameMissions);
 }
 
 void manageActiveObjects(ArrayList<Object> objects) {
@@ -894,6 +927,11 @@ void showHelp() {
       for (Integer activeScreen : activeScreens) {
         if (screen == activeScreen) {
           gameHelps.get(i).setActive(true);
+          for (Object gameMission : gameMissions) {
+            if (gameMission.getActive()) {
+              gameMission.setActive(false);
+            }
+          }
         }
       }
     }
@@ -911,7 +949,7 @@ boolean dropObject(Object object) {
       object.setActiveScreens(2);
       return true;
     }
-  }else if (object.getButtonType().equals("cesta") && screen == 1){
+  }else if (object.getButtonType().equals("cesta") && screen == 2){
     object.x = 1600;
     object.y = 30;
     object.setActiveScreens(3);
