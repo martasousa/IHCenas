@@ -128,6 +128,8 @@ int startScenarioTimer = 0;
 int changeScreenAfter = 5000; // we can only change screen after 5 secs
 int helpTimer = 10000; // set help timer for 10 secs
 int startHelpTimer = 0;
+int changeSoundAfter = 500;
+int startSoundTimer = 0;
 
 void setup() {
   
@@ -453,14 +455,27 @@ void draw() {
           rightHand_open = false;
           // If the button is the sound button
           if (gameButtons.get(k).getButtonType().equals("sound")) {
-            sound_state += 2;
-            if (sound_state >= 8) {
-              sound_state = 0;
+            if (startSoundTimer == 0) {
+              startSoundTimer = millis();
+              sound_state += 2;
+              if (sound_state >= 8) {
+                sound_state = 0;
+              }
+              // We change the button image
+              Object gameButton = gameButtons.get(k);
+              gameButton.setImage(soundButtonState[sound_state].getImage());
+              //gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
             }
-            // We change the button image
-            Object gameButton = gameButtons.get(k);
-            gameButton.setImage(soundButtonState[sound_state].getImage());
-            //gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
+            else if (startSoundTimer + changeSoundAfter <= millis()) {
+              startSoundTimer = millis();
+              sound_state += 2;
+              if (sound_state >= 8) {
+                sound_state = 0;
+              }
+              // We change the button image
+              Object gameButton = gameButtons.get(k);
+              gameButton.setImage(soundButtonState[sound_state].getImage());
+            }
           }
           
           // If the button is the settings button
@@ -525,14 +540,27 @@ void draw() {
           leftHand_open = false;
           // If the button is the sound button
           if (gameButtons.get(k).getButtonType().equals("sound")) {
-            sound_state += 2;
-            if (sound_state >= 8) {
-              sound_state = 0;
+            if (startSoundTimer == 0) {
+              startSoundTimer = millis();
+              sound_state += 2;
+              if (sound_state >= 8) {
+                sound_state = 0;
+              }
+              // We change the button image
+              Object gameButton = gameButtons.get(k);
+              gameButton.setImage(soundButtonState[sound_state].getImage());
+              //gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
             }
-            // We change the button image
-            Object gameButton = gameButtons.get(k);
-            gameButton.setImage(soundButtonState[sound_state].getImage());
-            //gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
+            else if (startSoundTimer + changeSoundAfter <= millis()) {
+              startSoundTimer = millis();
+              sound_state += 2;
+              if (sound_state >= 8) {
+                sound_state = 0;
+              }
+              // We change the button image
+              Object gameButton = gameButtons.get(k);
+              gameButton.setImage(soundButtonState[sound_state].getImage());
+            }
           }
           
           // If the button is the settings button
