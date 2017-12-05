@@ -973,19 +973,29 @@ boolean dropObject(Object object) {
       object.setActiveScreens(2);
       return true;
     }
-  }else if (object.getButtonType().equals("cesta") && screen == 2){
+  }else if (object.getButtonType().equals("cesta") && (screen == 2)){
     object.x = 1600;
     object.y = 30;
     object.setActiveScreens(3);
-  } else if (object.getButtonType().equals("cesta") && screen == 3){
+  } else if (object.getButtonType().equals("cesta") && (screen == 3)){
     object.x = 1600;
     object.y = 30;
     object.setActiveScreens(4);
-  } else if (object.getButtonType().equals("cesta") && screen == 4){
+  } else if (object.getButtonType().equals("cesta") && (screen == 4)){
     object.x = 1600;
     object.y = 30;
     object.setActiveScreens(5);
   } 
+  
+  if (object.getButtonType().equals("chave") && (screen == 4)){
+    if (object.y < (soundButton.y + soundButton.getImage().height)) {
+        object.x = (1600 - 300);
+        object.y = 30;
+        object.setActiveScreens(5);
+        return true;
+      }
+  }
+  
   return false;
 }
 
