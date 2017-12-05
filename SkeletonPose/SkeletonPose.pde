@@ -229,10 +229,7 @@ void setup() {
   objectKey.setImage(loadImage("cesta.png"));
   objectKey.setActive(false);
   objectKey.setActiveScreens(1);
-  objectKey.setActiveScreens(2);
-  objectKey.setActiveScreens(3);
-  objectKey.setActiveScreens(4);
-  objectKey.setActiveScreens(5);
+  
   objectKey.setButtonType("cesta");
   gameObjects.add(objectKey);
   
