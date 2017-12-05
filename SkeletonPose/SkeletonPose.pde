@@ -116,6 +116,7 @@ void setup() {
   gameCharacters = new ArrayList<Object>();
   gameHelps = new ArrayList<Object>();
   gameButtons = new ArrayList<Object>();
+  gameMissions = new ArrayList<Object>();
 
   //size(1920, 1080, P3D);
   fullScreen(P3D);
@@ -190,15 +191,21 @@ void setup() {
   gameBackgrounds.add(tempBackground);
   
   tempBackground = new Object(0, 0, 0);
-  tempBackground.setImage(loadImage("cenario6.png"));
+  tempBackground.setImage(loadImage("Quarto.png"));
   tempBackground.setActive(false);
   tempBackground.setActiveScreens(6);
   gameBackgrounds.add(tempBackground);
   
   tempBackground = new Object(0, 0, 0);
-  tempBackground.setImage(loadImage("cenario7.png"));
+  tempBackground.setImage(loadImage("cenario6.png"));
   tempBackground.setActive(false);
   tempBackground.setActiveScreens(7);
+  gameBackgrounds.add(tempBackground);
+  
+  tempBackground = new Object(0, 0, 0);
+  tempBackground.setImage(loadImage("cenario7.png"));
+  tempBackground.setActive(false);
+  tempBackground.setActiveScreens(8);
   gameBackgrounds.add(tempBackground);
   
   
@@ -392,11 +399,25 @@ void setup() {
   missionPopUp.setActive(false);
   gameMissions.add(missionPopUp);
   
-   missionPopUp = new Object(512, 950, 0);
-  missionPopUp.setImage(loadImage("Missao2.png"));
+  missionPopUp = new Object(512, 950, 0);
+  missionPopUp.setImage(loadImage("Missao4.png"));
   missionPopUp.setActiveScreens(4);
   missionPopUp.setActive(false);
   gameMissions.add(missionPopUp);
+  
+  missionPopUp = new Object(512, 950, 0);
+  missionPopUp.setImage(loadImage("Missao5.png"));
+  missionPopUp.setActiveScreens(5);
+  missionPopUp.setActive(false);
+  gameMissions.add(missionPopUp);
+  
+  missionPopUp = new Object(512, 950, 0);
+  missionPopUp.setImage(loadImage("Missao6.png"));
+  missionPopUp.setActiveScreens(6);
+  missionPopUp.setActive(false);
+  gameMissions.add(missionPopUp);
+  
+  
   
   
   
