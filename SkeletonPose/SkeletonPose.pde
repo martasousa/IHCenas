@@ -622,6 +622,7 @@ void draw() {
       }
     }
     setActiveScreens(screen);
+    showHelp();
   }
 
   fill(255, 0, 0);
