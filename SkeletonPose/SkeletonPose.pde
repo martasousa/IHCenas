@@ -126,6 +126,9 @@ boolean rightHand_open = true; // true : Open, false: Closed
 boolean leftHand_open = true;
 
 int screen = 0; // This will allow us to change screens... Hopefully
+int startScenarioTimer = 0;
+int changeScreenAfter = 5000; // we can only change screen after 5 secs
+int helpTimer = 10000; // set help timer for 10 secs
 
 void setup() {
   
@@ -471,10 +474,22 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
-            screen += 1;
-            if (screen > 5) {
-              screen = 0;
+            if (startScenarioTimer == 0) {
+              startScenarioTimer = millis();
+              screen += 1;
+              if (screen > 5) {
+                screen = 0;
+              }
+            } else {
+              if (startScenarioTimer + changeScreenAfter >= millis()) {
+                startScenarioTimer = millis();
+                screen += 1;
+                if (screen > 5) {
+                  screen = 0;
+                }
+              }
             }
+            
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
@@ -483,10 +498,7 @@ void draw() {
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
-            screen += 1;
-            if (screen > 5) {
-              screen = 0;
-            }
+            //PASS
           }
         }
         
@@ -547,10 +559,22 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
-            screen += 1;
-            if (screen > 5) {
-              screen = 0;
+            if (startScenarioTimer == 0) {
+              startScenarioTimer = millis();
+              screen += 1;
+              if (screen > 5) {
+                screen = 0;
+              }
+            } else {
+              if (startScenarioTimer + changeScreenAfter >= millis()) {
+                startScenarioTimer = millis();
+                screen += 1;
+                if (screen > 5) {
+                  screen = 0;
+                }
+              }
             }
+            
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
@@ -559,10 +583,7 @@ void draw() {
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
-            screen += 1;
-            if (screen > 5) {
-              screen = 0;
-            }
+            //PASS
           }
         }
         
