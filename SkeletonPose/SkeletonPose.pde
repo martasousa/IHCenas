@@ -835,6 +835,15 @@ void moveObject(Object object, PImage image, PVector vector) {
 
 void setActiveScreen() {
   manageActiveObjects(gameObjects);
+  for (Object gameObject : gameObjects) {
+    if (gameObject.getButtonType().equals("cesta")) {
+      print("In cesta");
+      for (int sc : gameObject.getActiveScreens())
+      {
+        println(sc);
+      }
+    }
+  }
   manageActiveObjects(gameBackgrounds);
   manageActiveObjects(gameButtons);
   manageActiveObjects(gameCharacters);
@@ -848,11 +857,6 @@ void manageActiveObjects(ArrayList<Object> objects) {
 
     for (int activeScreen : objects.get(i).getActiveScreens())
     {
-      if (objects.get(i).getButtonType().equals("cesta"))
-      {
-        println("Active screens");
-        println(activeScreen);
-      }
       if (screen == activeScreen || activeScreen == -1) {
         objects.get(i).setActive(true);
       } else {
