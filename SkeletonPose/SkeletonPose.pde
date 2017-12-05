@@ -986,6 +986,10 @@ boolean dropObject(Object object) {
     object.x = 1600;
     object.y = 30;
     object.setActiveScreens(5);
+  } else if (object.getButtonType().equals("cesta") && (screen == 5)){
+    object.x = 1600;
+    object.y = 30;
+    object.setActiveScreens(6);
   } 
   
   if (object.getButtonType().equals("chave") && (screen == 4)){
