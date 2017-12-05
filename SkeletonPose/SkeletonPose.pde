@@ -139,7 +139,8 @@ void setup() {
   soundButtonState = new Object[8];
   gameCharacters = new ArrayList<Object>();
   gameHelps = new ArrayList<Object>();
-  
+  gameButtons = new ArrayList<Object>();
+
   //size(1920, 1080, P3D);
   fullScreen(P3D);
 
@@ -163,6 +164,17 @@ void setup() {
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.ABOVE, KinectPV2.JointType_ElbowLeft);
   poseArmsOpen.addRule(KinectPV2.JointType_HandRight, PoseRule.RIGHT_OF, KinectPV2.JointType_ElbowRight);
   poseArmsOpen.addRule(KinectPV2.JointType_HandLeft, PoseRule.LEFT_OF, KinectPV2.JointType_ElbowLeft);
+  
+  /**********************************************************************
+  *
+  * Screens: 
+  *  0: Inicial
+  *  1: Primeiro capuchinho
+  *  ...
+  *  6: Menu histórias
+  *  7: Menu pausa?
+  *
+  ***********************************************************************/
   
   //Backgrounds loading here
   Object tempBackground = new Object(0, 0, 0);
@@ -199,6 +211,18 @@ void setup() {
   tempBackground.setImage(loadImage("cenario5.png"));
   tempBackground.setActive(false);
   tempBackground.setActiveScreens(5);
+  gameBackgrounds.add(tempBackground);
+  
+  tempBackground = new Object(0, 0, 0);
+  tempBackground.setImage(loadImage("cenario6.png"));
+  tempBackground.setActive(false);
+  tempBackground.setActiveScreens(6);
+  gameBackgrounds.add(tempBackground);
+  
+  tempBackground = new Object(0, 0, 0);
+  tempBackground.setImage(loadImage("cenario7.png"));
+  tempBackground.setActive(false);
+  tempBackground.setActiveScreens(7);
   gameBackgrounds.add(tempBackground);
   
   
@@ -289,30 +313,59 @@ void setup() {
   settingsButton = new Object(width-150, height - 150, 0);
   settingsButton.setImage(settings);
   settingsButton.setButtonType("settings");
+  settingsButton.setActiveScreens(0);
+  settingsButton.setActiveScreens(6);
+  settingsButton.setActive(true);
  
-  
   
   exitButton = new Object(50, height -150, 0);
   exitButton.setImage(exit);
   exitButton.setButtonType("exit");
+  exitButton.setActiveScreens(0);
+  exitButton.setActiveScreens(6);
+  exitButton.setActive(true);
   
   continueButton = new Object(710, 350, 0);
   continueButton.setImage(continue_button);
   continueButton.setButtonType("continue");
+  continueButton.setActive(true);
+  continueButton.setActiveScreens(0);
  
-  
   
   startButton = new Object(710, 590, 0);
   startButton.setImage(start);
   startButton.setButtonType("start");
+  startButton.setActive(true);
+  startButton.setActiveScreens(0);
   
-  
-  gameButtons = new ArrayList<Object>();
   
   soundButton = new Object(350, 50, 0);
   soundButton.setImage(sound3);
   soundButton.setButtonType("sound");
-
+  soundButton.setActive(true);
+  soundButton.setActiveScreens(-1);
+  
+  Object pauseButton = new Object(exitButton.x, exitButton.y, 0);
+  pauseButton.setImage(loadImage("b_pause.png"));
+  pauseButton.setButtonType("pause");
+  pauseButton.setActive(false);
+  pauseButton.setActiveScreens(1);
+  pauseButton.setActiveScreens(2);
+  pauseButton.setActiveScreens(3);
+  pauseButton.setActiveScreens(4);
+  pauseButton.setActiveScreens(5);
+  
+  Object helpButton = new Object(settingsButton.x, settingsButton.y, 0);
+  helpButton.setImage(loadImage("b_ajuda.png"));
+  helpButton.setButtonType("help");
+  helpButton.setActive(false);
+  helpButton.setActiveScreens(1);
+  helpButton.setActiveScreens(2);
+  helpButton.setActiveScreens(3);
+  helpButton.setActiveScreens(4);
+  helpButton.setActiveScreens(5);
+  
+  
   
   gameButtons.add(soundButton);
   gameButtons.add(settingsButton);
@@ -339,6 +392,7 @@ void setup() {
   file = new SoundFile(this, "sound.wav");
   file.play();
   file.loop();
+  file.amp(0.0);
   println("Finished Setup");
 }
 
@@ -415,7 +469,7 @@ void draw() {
       
 
         // HERE WE HIGHLIGHT THE BUTTON WHEN SOMEONE HOVERS IT
-        if (hoversObject(gameButtons.get(k), gameButtons.get(k).getImage() , joints[KinectPV2.JointType_HandRight])) { 
+        if (hoversObject(gameButtons.get(k), gameButtons.get(k).getImage() , joints[KinectPV2.JointType_HandRight]) && gameButtons.get(k).getActive()) { 
           if (gameButtons.get(k).getButtonType().equals("sound")) {
             Object gameButton = gameButtons.get(k);
             gameButton.setImage(soundButtonState[sound_state + 1].getImage());
@@ -451,7 +505,7 @@ void draw() {
         }
         
         // HERE WE DECIDE WHAT TO DO WHEN SOMEONE SELECTS IT
-        else if (holdsObject(gameButtons.get(k), gameButtons.get(k).getImage(), joints[KinectPV2.JointType_HandRight]) && (rightHand_open == true)) { 
+        else if (holdsObject(gameButtons.get(k), gameButtons.get(k).getImage(), joints[KinectPV2.JointType_HandRight]) && (rightHand_open == true) && gameButtons.get(k).getActive()) { 
           rightHand_open = false;
           // If the button is the sound button
           if (gameButtons.get(k).getButtonType().equals("sound")) {
@@ -486,7 +540,7 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
-            changeScreen();      
+            changeScreen(screen + 1);      
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
@@ -495,12 +549,12 @@ void draw() {
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
-            //PASS
+            changeScreen(6); 
           }
         }
         
         // HERE WE HIGHLIGHT THE BUTTON WHEN SOMEONE HOVERS IT
-        if (hoversObject(gameButtons.get(k), gameButtons.get(k).getImage() , joints[KinectPV2.JointType_HandLeft])) { 
+        if (hoversObject(gameButtons.get(k), gameButtons.get(k).getImage() , joints[KinectPV2.JointType_HandLeft]) && gameButtons.get(k).getActive()) { 
           if (gameButtons.get(k).getButtonType().equals("sound")) {
             Object gameButton = gameButtons.get(k);
             gameButton.setImage(soundButtonState[sound_state + 1].getImage());
@@ -538,7 +592,7 @@ void draw() {
         }
         
         // HERE WE DECIDE WHAT TO DO WHEN SOMEONE SELECTS IT
-        else if (holdsObject(gameButtons.get(k), gameButtons.get(k).getImage(), joints[KinectPV2.JointType_HandLeft]) && (leftHand_open == true)) { 
+        else if (holdsObject(gameButtons.get(k), gameButtons.get(k).getImage(), joints[KinectPV2.JointType_HandLeft]) && (leftHand_open == true) && gameButtons.get(k).getActive()) { 
           leftHand_open = false;
           // If the button is the sound button
           if (gameButtons.get(k).getButtonType().equals("sound")) {
@@ -573,7 +627,7 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
-            changeScreen();
+            changeScreen(screen + 1);
             
           }
           // If the button is the exit button
@@ -583,12 +637,12 @@ void draw() {
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
-            exit();
+            changeScreen(6); 
           }
         }
         
         //Return them to 'normal' state
-        else {
+        else if (gameButtons.get(k).getActive()){
           if (gameButtons.get(k).getButtonType().equals("sound")) {
             Object gameButton = gameButtons.get(k);
             gameButton.setImage(soundButtonState[sound_state].getImage());
@@ -626,7 +680,7 @@ void draw() {
         }
       }
     }
-    setActiveScreens(screen);
+    setActiveScreen(screen);
     showHelp();
   }
 
@@ -774,16 +828,17 @@ void moveObject(Object object, PImage image, PVector vector) {
   object.setCoordinates((vector.x - image.width/2), (vector.y - image.height/2));
 }
 
-void setActiveScreens(int screen) {
+void setActiveScreen(int screen) {
   manageActiveObjects(gameObjects, screen);
   manageActiveObjects(gameBackgrounds, screen);
+  manageActiveObjects(gameButtons, screen);
 }
 
 void manageActiveObjects(ArrayList<Object> objects, int screen) {
   for (int i = 0; i < objects.size(); i++) {
     ArrayList<Integer> activeScreens = objects.get(i).getActiveScreens();
     for (int j = 0; j < activeScreens.size(); j++) {
-      if (screen == activeScreens.get(j)) {
+      if (screen == activeScreens.get(j) || activeScreens.get(j) == -1) {
         objects.get(i).setActive(true);
       } else {
         objects.get(i).setActive(false);
@@ -793,24 +848,24 @@ void manageActiveObjects(ArrayList<Object> objects, int screen) {
   
 }
 
-void changeScreen() {
+void changeScreen(int new_screen) {
   if (startScenarioTimer == 0) {
     startScenarioTimer = millis();
-    screen += 1;
+    screen = new_screen;
     for (int i = 0; i < gameHelps.size(); i++) {
       gameHelps.get(i).setActive(false);
     }
-    if (screen > 5) {
+    if (screen > 6) {
       screen = 0;
     }
   } else {
     if (startScenarioTimer + changeScreenAfter <= millis()) {
       startScenarioTimer = millis();
-      screen += 1;
+      screen = new_screen;
       for (int i = 0; i < gameHelps.size(); i++) {
         gameHelps.get(i).setActive(false);
       }
-      if (screen > 5) {
+      if (screen > 6) {
         screen = 0;
       }
     }
