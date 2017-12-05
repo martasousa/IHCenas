@@ -917,13 +917,27 @@ void manageActiveObjects(ArrayList<Object> objects) {
 }
 
 void changeScreen(int new_screen) {
+  if (screen == 1 || screen == 4 || screen == 5 || screen == 6)
+  {
+    if (startScenarioTimer + (changeScreenAfter/2) <= millis()) {
+      startScenarioTimer = millis();
+      screen = new_screen;
+      for (int i = 0; i < gameHelps.size(); i++) {
+        gameHelps.get(i).setActive(false);
+      }
+      if (screen > 6) {
+        screen = 0;
+      }
+    }
+    setActiveScreen();
+  }
   if (startScenarioTimer == 0) {
     startScenarioTimer = millis();
     screen = new_screen;
     for (int i = 0; i < gameHelps.size(); i++) {
       gameHelps.get(i).setActive(false);
     }
-    if (screen > 6) {
+    if (screen > 7) {
       screen = 0;
     }
     setActiveScreen();
@@ -934,7 +948,7 @@ void changeScreen(int new_screen) {
       for (int i = 0; i < gameHelps.size(); i++) {
         gameHelps.get(i).setActive(false);
       }
-      if (screen > 6) {
+      if (screen > 7) {
         screen = 0;
       }
     }
@@ -994,6 +1008,9 @@ boolean dropObject(Object object) {
     if ((object.y < 700 ) && (object.y > 550)) {
       if ((object.x > 550) && (object.x < 750))
       {
+        object.setActiveScreens(1);
+        object.x = 560;
+        object.y = 700;
         return true;
       } 
     }
@@ -1011,6 +1028,9 @@ boolean dropObject(Object object) {
     if ((object.y < 880 ) && (object.y > 600)) {
       if ((object.x > 1000) && (object.x < 1400))
       {
+        object.setActiveScreens(4);
+        object.x = 560;
+        object.y = 700;
         return true;
       } 
     }
