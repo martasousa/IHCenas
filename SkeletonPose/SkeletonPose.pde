@@ -799,7 +799,7 @@ void changeScreen() {
       screen = 0;
     }
   } else {
-    if (startScenarioTimer + changeScreenAfter >= millis()) {
+    if (startScenarioTimer + changeScreenAfter <= millis()) {
       startScenarioTimer = millis();
       screen += 1;
       for (int i = 0; i < gameHelps.size(); i++) {
@@ -814,7 +814,7 @@ void changeScreen() {
 };
 
 void showHelp() {
-  if (startScenarioTimer + helpTimer >= millis()) {
+  if (startScenarioTimer + helpTimer <= millis()) {
     startHelpTimer = millis();
     for (int i = 0; i < gameHelps.size(); i++) {
       ArrayList<Integer> activeScreens = gameHelps.get(i).getActiveScreens();
