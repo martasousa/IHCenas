@@ -115,6 +115,7 @@ ArrayList<Object> exitButtonState;
 ArrayList<Object> settingsButtonState;
 ArrayList<Object> startButtonState;
 ArrayList<Object> gameCharacters;
+ArrayList<Object> gameHelps;
 
 Object soundButton, settingsButton, exitButton, startButton, continueButton;
 
@@ -128,7 +129,8 @@ boolean leftHand_open = true;
 int screen = 0; // This will allow us to change screens... Hopefully
 int startScenarioTimer = 0;
 int changeScreenAfter = 5000; // we can only change screen after 5 secs
-int helpTimer = 10000; // set help timer for 10 secs
+int helpTimer = 20000; // set help timer for 10 secs
+int startHelpTimer = 0;
 
 void setup() {
   
@@ -142,6 +144,8 @@ void setup() {
   settingsButtonState = new ArrayList<Object>();
   startButtonState = new ArrayList<Object>();
   gameCharacters = new ArrayList<Object>();
+  gameHelps = new ArrayList<Object>();
+  
   //size(1920, 1080, P3D);
   fullScreen(P3D);
 
@@ -223,8 +227,8 @@ void setup() {
   Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
   objectKey.setImage(loadImage("chave.png"));
   objectKey.setActive(false);
-  objectKey.setActiveScreens(4);
-  objectKey.setActiveScreens(5);
+  objectKey.setActiveScreens(2);
+  objectKey.setActiveScreens(3);
   gameObjects.add(objectKey);
   
   
@@ -344,6 +348,21 @@ void setup() {
   gameButtons.add(continueButton);
   gameButtons.add(startButton);
   
+  // Set game help
+  Object helpPopUp = new Object(839, 512, 0);
+  helpPopUp.setImage(loadImage("help1.png"));
+  helpPopUp.setActiveScreens(0);
+  helpPopUp.setActive(false);
+  gameHelps.add(helpPopUp);
+  
+  helpPopUp = new Object(839, 512, 0);
+  helpPopUp.setImage(loadImage("help2.png"));
+  helpPopUp.setActiveScreens(2);
+  helpPopUp.setActive(false);
+  gameHelps.add(helpPopUp);
+  
+  
+  
   // Load a soundfile from the /data folder of the sketch and play it back
   file = new SoundFile(this, "sound.wav");
   file.play();
@@ -365,6 +384,12 @@ void draw() {
   for (Object gameObject : gameObjects) {
     if (gameObject.getActive()) {
       image(gameObject.getImage(), gameObject.x, gameObject.y);
+    }
+  }
+  
+  for (Object gameHelp : gameHelps) {
+    if (gameHelp.getActive()) {
+      image(gameHelp.getImage(), gameHelp.x, gameHelp.y);
     }
   }
   
@@ -474,26 +499,7 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
-            if (startScenarioTimer == 0) {
-              println(startScenarioTimer);
-              println(millis());
-              startScenarioTimer = millis();
-              screen += 1;
-              if (screen > 5) {
-                screen = 0;
-              }
-            } else {
-              if (startScenarioTimer + changeScreenAfter <= millis()) {
-                startScenarioTimer = millis();
-                println(startScenarioTimer);
-                println(millis());
-                screen += 1;
-                if (screen > 5) {
-                  screen = 0;
-                }
-              }
-            }
-            
+            changeScreen();      
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
@@ -563,21 +569,7 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
-            if (startScenarioTimer == 0) {
-              startScenarioTimer = millis();
-              screen += 1;
-              if (screen > 5) {
-                screen = 0;
-              }
-            } else {
-              if (startScenarioTimer + changeScreenAfter >= millis()) {
-                startScenarioTimer = millis();
-                screen += 1;
-                if (screen > 5) {
-                  screen = 0;
-                }
-              }
-            }
+            changeScreen();
             
           }
           // If the button is the exit button
@@ -793,4 +785,44 @@ void manageActiveObjects(ArrayList<Object> objects, int screen) {
     }
   }
   
+}
+
+void changeScreen() {
+  if (startScenarioTimer == 0) {
+    startScenarioTimer = millis();
+    screen += 1;
+    for (int i = 0; i < gameHelps.size(); i++) {
+      gameHelps.get(i).setActive(false);
+    }
+    if (screen > 5) {
+      screen = 0;
+    }
+  } else {
+    if (startScenarioTimer + changeScreenAfter >= millis()) {
+      startScenarioTimer = millis();
+      screen += 1;
+      for (int i = 0; i < gameHelps.size(); i++) {
+        gameHelps.get(i).setActive(false);
+      }
+      if (screen > 5) {
+        screen = 0;
+      }
+    }
+  }
+  
+};
+
+void showHelp() {
+  if (startScenarioTimer + helpTimer >= millis()) {
+    startHelpTimer = millis();
+    for (int i = 0; i < gameHelps.size(); i++) {
+      ArrayList<Integer> activeScreens = gameHelps.get(i).getActiveScreens();
+      for (Integer activeScreen : activeScreens) {
+        if (screen == activeScreen) {
+          gameHelps.get(i).setActive(true);
+        }
+      }
+    }
+  }
+
 }
