@@ -731,7 +731,7 @@ boolean hoversObject(Object object, PImage image, KJoint joint) {
 }
 
 void moveObject(Object object, PImage image, PVector vector) {
-  object.setCoordinates(vector.x - image.width/2, vector.y - image.height/2);
+  object.setCoordinates((vector.x - image.width/2), (vector.y - image.height/2));
 }
 
 void setActiveScreens(int screen) {
@@ -739,15 +739,16 @@ void setActiveScreens(int screen) {
   manageActiveObjects(gameBackgrounds, screen);
 }
 
-void manageActiveObjects(ArrayList<Object>, int screen) {
-  for (int i = 0; i < objects.length; i++) {
-    int[] activeScreens = objects[i].getActiveScreens();
-    for (int j = 0; j < activeScreens.length; j++) {
-      if (screen == activeScreens[j]) {
-        objects[i].setActive(true);
+void manageActiveObjects(ArrayList<Object> objects, int screen) {
+  for (int i = 0; i < objects.size(); i++) {
+    ArrayList<Integer> activeScreens = objects.get(i).getActiveScreens();
+    for (int j = 0; j < activeScreens.size(); j++) {
+      if (screen == activeScreens.get(j)) {
+        objects.get(i).setActive(true);
       } else {
-        objects[i].setActive(false);
+        objects.get(i).setActive(false);
       }
     }
   }
+  
 }
