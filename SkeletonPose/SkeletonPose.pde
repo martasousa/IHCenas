@@ -389,7 +389,6 @@ void draw() {
   
   // Draw background
   background(0);
-  println("Screen: " + screen);
   
   for (Object gameBackground : gameBackgrounds) {
     if (gameBackground.getActive()) {
