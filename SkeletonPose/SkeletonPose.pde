@@ -452,26 +452,26 @@ void draw() {
           // If the button is the settings button
           else if (gameButtons.get(k).getButtonType().equals("settings")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(settingsButtonState.get(other_state + 1).getImage());
-            gameButton.setCoordinates(settingsButtonState.get(other_state + 1).x, settingsButtonState.get(other_state + 1).y);
+            gameButton.setImage(settingsButtonState.get(1).getImage());
+            gameButton.setCoordinates(settingsButtonState.get(1).x, settingsButtonState.get(1).y);
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(continueButtonState.get(other_state + 1).getImage());
-            gameButton.setCoordinates(continueButtonState.get(other_state + 1).x, continueButtonState.get(other_state + 1).y);
+            gameButton.setImage(continueButtonState.get(1).getImage());
+            gameButton.setCoordinates(continueButtonState.get(1).x, continueButtonState.get(1).y);
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(exitButtonState.get(other_state + 1).getImage());
-            gameButton.setCoordinates(exitButtonState.get(other_state + 1).x, exitButtonState.get(other_state + 1).y);
+            gameButton.setImage(exitButtonState.get(1).getImage());
+            gameButton.setCoordinates(exitButtonState.get(1).x, exitButtonState.get(1).y);
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(startButtonState.get(other_state + 1).getImage());
-            gameButton.setCoordinates(startButtonState.get(other_state + 1).x, startButtonState.get(other_state + 1).y);
+            gameButton.setImage(startButtonState.get(1).getImage());
+            gameButton.setCoordinates(startButtonState.get(1).x, startButtonState.get(1).y);
           }
           
           rightHand_open = true;
@@ -522,28 +522,28 @@ void draw() {
           // If the button is the settings button
           else if (gameButtons.get(k).getButtonType().equals("settings")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(settingsButtonState.get(other_state + 1).getImage());
-            gameButton.setCoordinates(settingsButtonState.get(other_state + 1).x, settingsButtonState.get(other_state + 1).y);
+            gameButton.setImage(settingsButtonState.get(1).getImage());
+            gameButton.setCoordinates(settingsButtonState.get(1).x, settingsButtonState.get(1).y);
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(continueButtonState.get(other_state + 1).getImage());
-            gameButton.setCoordinates(continueButtonState.get(other_state + 1).x, continueButtonState.get(other_state + 1).y);
+            gameButton.setImage(continueButtonState.get(1).getImage());
+            gameButton.setCoordinates(continueButtonState.get(1).x, continueButtonState.get(1).y);
             println("Faz hover com mao esquerda no continue");
             println(gameButtons.get(k).getImage());
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(exitButtonState.get(other_state + 1).getImage());
-            gameButton.setCoordinates(exitButtonState.get(other_state + 1).x, exitButtonState.get(other_state + 1).y);
+            gameButton.setImage(exitButtonState.get(1).getImage());
+            gameButton.setCoordinates(exitButtonState.get(1).x, exitButtonState.get(1).y);
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(startButtonState.get(other_state + 1).getImage());
-            gameButton.setCoordinates(startButtonState.get(other_state + 1).x, startButtonState.get(other_state + 1).y);
+            gameButton.setImage(startButtonState.get(1).getImage());
+            gameButton.setCoordinates(startButtonState.get(1).x, startButtonState.get(1).y);
           }
           
           leftHand_open = true;
@@ -595,30 +595,30 @@ void draw() {
           // If the button is the settings button
           else if (gameButtons.get(k).getButtonType().equals("settings")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(settingsButtonState.get(other_state).getImage());
-            gameButton.setCoordinates(settingsButtonState.get(other_state).x, settingsButtonState.get(other_state).y);
+            gameButton.setImage(settingsButtonState.get(0).getImage());
+            gameButton.setCoordinates(settingsButtonState.get(0).x, settingsButtonState.get(0).y);
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(continueButtonState.get(other_state).getImage());
-            gameButton.setCoordinates(continueButtonState.get(other_state).x, continueButtonState.get(other_state).y);
+            gameButton.setImage(continueButtonState.get(0).getImage());
+            gameButton.setCoordinates(continueButtonState.get(0).x, continueButtonState.get(0).y);
             println("continueButtonState.get(other_state)");
             println(continueButtonState.get(other_state).getImage());
             println("continueButtonState.get(other_state +1 )");
-            println(continueButtonState.get(other_state + 1).getImage());
+            println(continueButtonState.get(1).getImage());
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(exitButtonState.get(other_state).getImage());
-            gameButton.setCoordinates(exitButtonState.get(other_state).x, exitButtonState.get(other_state).y);
+            gameButton.setImage(exitButtonState.get(0).getImage());
+            gameButton.setCoordinates(exitButtonState.get(0).x, exitButtonState.get(0).y);
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(startButtonState.get(other_state).getImage());
-            gameButton.setCoordinates(startButtonState.get(other_state).x, startButtonState.get(other_state).y);
+            gameButton.setImage(startButtonState.get(0).getImage());
+            gameButton.setCoordinates(startButtonState.get(0).x, startButtonState.get(0).y);
           }
           
           rightHand_open = true;
