@@ -928,9 +928,12 @@ boolean moveOn(KJoint right, KJoint left) {
   if (screen == 2) {
     PVector rhand = right.getPosition();
     PVector lhand = left.getPosition();
-    if (right.getState() != KinectPV2.HandState_Closed || left.getState() != KinectPV2.HandState_Closed) {
-      return false;
-    }
+    print("Rhand: ");
+    println(rhand.x);
+    println(rhand.y);
+    print("Lhand: ");
+    println(lhand.x);
+    println(lhand.y);
     if (rhand.y  - lhand.y <= 50 ) {
       if (rhand.x - lhand.x <= 50) {
         return true;
