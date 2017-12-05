@@ -428,6 +428,10 @@ void draw() {
   for (Object gameObject : gameObjects) {
     if (gameObject.getActive()) {
       image(gameObject.getImage(), gameObject.x, gameObject.y);
+      print("X: ");
+      println(gameObject.x);
+      print("Y: ");
+      println(gameObject.y);
     }
   }
   
