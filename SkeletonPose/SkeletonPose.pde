@@ -478,13 +478,14 @@ void draw() {
           moveObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandRight].getPosition());
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
         }
-        if (holdsObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft]) && gameObjects.get(j).getActive()) {
+        else if (holdsObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft]) && gameObjects.get(j).getActive()) {
           println("Mao direita na bola");
           moveObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft].getPosition());
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
+        } else {
+          if (dropObject(gameObjects.get(j)))
+            changeScreen(screen +1 );
         }
-        if (dropObject(gameObjects.get(j)))
-          screen += 1;
       }
       for (int k = 0; k < gameButtons.size(); k++) {
         
@@ -920,5 +921,5 @@ boolean dropObject(Object object) {
       return true;
     }
   }
-  return false;
+  return false;g
 }
