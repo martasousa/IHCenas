@@ -232,6 +232,10 @@ void setup() {
   objectBasket.setActiveScreens(3);
   objectBasket.setActive(false);
   objectBasket.setButtonType("cesta");
+  println(objectBasket.getActiveScreens().size());
+  for (int sc : objectBasket.getActiveScreens()) {
+    println(sc);
+  }
   gameObjects.add(objectBasket);
   
   
