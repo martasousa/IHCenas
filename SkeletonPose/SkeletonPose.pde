@@ -249,7 +249,7 @@ void setup() {
   objectKey.setActiveScreens(3);
   gameObjects.add(objectKey);
   
-  objectKey = new Object(550, 650, 0);
+  objectKey = new Object(500, 630, 0);
   objectKey.setImage(loadImage("cesta.png"));
   objectKey.setActive(false);
   objectKey.setActiveScreens(1);
@@ -413,9 +413,9 @@ void draw() {
     }
   }
   
-  for (Object gameObject : gameObjects) {
-    if (gameObject.getActive()) {
-      image(gameObject.getImage(), gameObject.x, gameObject.y);
+  for (Object gameCharacter : gameCharacters) {
+    if (gameCharacter.getActive()) {
+      image(gameCharacter.getImage(), gameCharacter.x, gameCharacter.y);
     }
   }
   
@@ -425,11 +425,14 @@ void draw() {
     }
   }
   
-  for (Object gameCharacter : gameCharacters) {
-    if (gameCharacter.getActive()) {
-      image(gameCharacter.getImage(), gameCharacter.x, gameCharacter.y);
+  for (Object gameObject : gameObjects) {
+    if (gameObject.getActive()) {
+      image(gameObject.getImage(), gameObject.x, gameObject.y);
     }
   }
+  
+  
+  
   
   
   ArrayList<KSkeleton> skeletonArray =  kinect.getSkeletonColorMap();
