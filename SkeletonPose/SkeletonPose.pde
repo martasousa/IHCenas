@@ -106,15 +106,15 @@ PImage exit;
 PImage exit_selected;
 SoundFile file;
 
-ArrayList<Object> gameObjects = new ArrayList();
-ArrayList<Object> gameButtons = new ArrayList();
-ArrayList<Object> gameBackgrounds = new ArrayList();
-ArrayList<Object> soundButtonState = new ArrayList();
-ArrayList<Object> continueButtonState = new ArrayList();
-ArrayList<Object> exitButtonState = new ArrayList();
-ArrayList<Object> settingsButtonState = new ArrayList();
-ArrayList<Object> startButtonState = new ArrayList();
-ArrayList<Object> gameCharacters = new ArrayList();
+ArrayList<Object> gameObjects;
+ArrayList<Object> gameButtons;
+ArrayList<Object> gameBackgrounds;
+ArrayList<Object> soundButtonState;
+ArrayList<Object> continueButtonState;
+ArrayList<Object> exitButtonState;
+ArrayList<Object> settingsButtonState;
+ArrayList<Object> startButtonState;
+ArrayList<Object> gameCharacters;
 
 Object soundButton, settingsButton, exitButton, startButton, continueButton;
 
@@ -130,7 +130,15 @@ int screen = 0; // This will allow us to change screens... Hopefully
 void setup() {
   
   println("Started setup");
+  gameObjects = new ArrayList<Object>();
   
+  gameBackgrounds = new ArrayList<Object>();
+  soundButtonState = new ArrayList<Object>();
+  continueButtonState = new ArrayList<Object>();
+  exitButtonState = new ArrayList<Object>();
+  settingsButtonState = new ArrayList<Object>();
+  startButtonState = new ArrayList<Object>();
+  gameCharacters = new ArrayList<Object>();
   //size(1920, 1080, P3D);
   fullScreen(P3D);
 
@@ -320,7 +328,7 @@ void setup() {
   startButtonTemp.setButtonType("start");
   startButtonState.add(startButtonTemp);
   
-  
+  gameButtons = new ArrayList<Object>();
   gameButtons.add(soundButton);
   gameButtons.add(settingsButton);
   gameButtons.add(exitButton);
