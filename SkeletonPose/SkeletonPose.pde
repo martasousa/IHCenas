@@ -129,14 +129,13 @@ boolean leftHand_open = true;
 int screen = 0; // This will allow us to change screens... Hopefully
 int startScenarioTimer = 0;
 int changeScreenAfter = 5000; // we can only change screen after 5 secs
-int helpTimer = 20000; // set help timer for 10 secs
+int helpTimer = 10000; // set help timer for 10 secs
 int startHelpTimer = 0;
 
 void setup() {
   
   println("Started setup");
   gameObjects = new ArrayList<Object>();
-  
   gameBackgrounds = new ArrayList<Object>();
   soundButtonState = new ArrayList<Object>();
   continueButtonState = new ArrayList<Object>();
@@ -264,8 +263,7 @@ void setup() {
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound1);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState.add(soundButtonTemp);
-  
+  soundf
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound1_selected);
   soundButtonTemp.setButtonType("sound");
@@ -349,13 +347,13 @@ void setup() {
   gameButtons.add(startButton);
   
   // Set game help
-  Object helpPopUp = new Object(839, 512, 0);
+  Object helpPopUp = new Object(512, 839, 0);
   helpPopUp.setImage(loadImage("help1.png"));
   helpPopUp.setActiveScreens(0);
   helpPopUp.setActive(false);
   gameHelps.add(helpPopUp);
   
-  helpPopUp = new Object(839, 512, 0);
+  helpPopUp = new Object(512, 839, 0);
   helpPopUp.setImage(loadImage("help2.png"));
   helpPopUp.setActiveScreens(2);
   helpPopUp.setActive(false);
@@ -531,6 +529,8 @@ void draw() {
             Object gameButton = gameButtons.get(k);
             gameButton.setImage(continueButtonState.get(other_state + 1).getImage());
             gameButton.setCoordinates(continueButtonState.get(other_state + 1).x, continueButtonState.get(other_state + 1).y);
+            println("Faz hover com mao esquerda no continue");
+            println(gameButtons.get(k).getImage());
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
@@ -579,7 +579,7 @@ void draw() {
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
-            //PASS
+            exit();
           }
         }
         
@@ -602,6 +602,8 @@ void draw() {
             Object gameButton = gameButtons.get(k);
             gameButton.setImage(continueButtonState.get(other_state).getImage());
             gameButton.setCoordinates(continueButtonState.get(other_state).x, continueButtonState.get(other_state).y);
+            println("está no continue sem hover");
+            println(gameButtons.get(k).getImage());
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
