@@ -109,19 +109,16 @@ SoundFile file;
 ArrayList<Object> gameObjects;
 ArrayList<Object> gameButtons;
 ArrayList<Object> gameBackgrounds;
-ArrayList<Object> soundButtonState;
-ArrayList<Object> continueButtonState;
-ArrayList<Object> exitButtonState;
-ArrayList<Object> settingsButtonState;
-ArrayList<Object> startButtonState;
 ArrayList<Object> gameCharacters;
 ArrayList<Object> gameHelps;
+
+Object[] soundButtonState;
+
 
 Object soundButton, settingsButton, exitButton, startButton, continueButton;
 
 int selectedMargin = 10;
 int sound_state = 0;
-int other_state = 0;
 
 boolean rightHand_open = true; // true : Open, false: Closed
 boolean leftHand_open = true;
@@ -137,12 +134,7 @@ void setup() {
   println("Started setup");
   gameObjects = new ArrayList<Object>();
   gameBackgrounds = new ArrayList<Object>();
-  soundButtonState = new ArrayList<Object>();
-  
-  continueButtonState = new ArrayList<Object>();
-  exitButtonState = new ArrayList<Object>();
-  settingsButtonState = new ArrayList<Object>();
-  startButtonState = new ArrayList<Object>();
+  soundButtonState = new Object[8];
   gameCharacters = new ArrayList<Object>();
   gameHelps = new ArrayList<Object>();
   
@@ -251,101 +243,71 @@ void setup() {
   
   
   //Set game buttons here
-  Object soundButtonTemp = new Object(50, 50, 0);
+  Object soundButtonTemp = new Object(350, 50, 0);
   soundButtonTemp.setImage(sound0);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState.add(soundButtonTemp);
+  soundButtonState[0] = soundButtonTemp;
   
-  soundButtonTemp = new Object(50, 50, 0);
+  soundButtonTemp = new Object(350, 50, 0);
   soundButtonTemp.setImage(sound0_selected);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState.add(soundButtonTemp);
+  soundButtonState[1] = soundButtonTemp;
   
-  soundButtonTemp = new Object(50, 50, 0);
+  soundButtonTemp = new Object(350, 50, 0);
   soundButtonTemp.setImage(sound1);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState.add(soundButtonTemp);
+  soundButtonState[2] = soundButtonTemp;
   
-  soundButtonTemp = new Object(50, 50, 0);
+  soundButtonTemp = new Object(350, 50, 0);
   soundButtonTemp.setImage(sound1_selected);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState.add(soundButtonTemp);
+  soundButtonState[3] = soundButtonTemp;
   
-  soundButtonTemp = new Object(50, 50, 0);
+  soundButtonTemp = new Object(350, 50, 0);
   soundButtonTemp.setImage(sound2);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState.add(soundButtonTemp);
+  soundButtonState[4] = soundButtonTemp;
   
-  soundButtonTemp = new Object(50, 50, 0);
+  soundButtonTemp = new Object(350, 50, 0);
   soundButtonTemp.setImage(sound2_selected);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState.add(soundButtonTemp);
+  soundButtonState[5] = soundButtonTemp;
   
-  soundButtonTemp = new Object(50, 50, 0);
+  soundButtonTemp = new Object(350, 50, 0);
   soundButtonTemp.setImage(sound3);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState.add(soundButtonTemp);
+  soundButtonState[6] = soundButtonTemp;
   
-  soundButtonTemp = new Object(50, 50, 0);
+  soundButtonTemp = new Object(350, 50, 0);
   soundButtonTemp.setImage(sound3_selected);
   soundButtonTemp.setButtonType("sound");
-  soundButtonState.add(soundButtonTemp);
+  soundButtonState[7] = soundButtonTemp;
   
   
   settingsButton = new Object(width-150, height - 150, 0);
   settingsButton.setImage(settings);
   settingsButton.setButtonType("settings");
-  settingsButtonState.add(settingsButton);
-  
-  Object settingsButtonTemp = new Object(width-150, height - 150, 0);
-  settingsButtonTemp.setImage(settings_selected);
-  settingsButtonTemp.setButtonType("settings");
-  settingsButtonState.add(settingsButtonTemp);
+ 
   
   
   exitButton = new Object(50, height -150, 0);
   exitButton.setImage(exit);
   exitButton.setButtonType("exit");
-  exitButtonState.add(exitButton);
-  
-  Object exitButtonTemp = new Object(50, height -150, 0);
-  exitButtonTemp.setImage(exit_selected);
-  exitButtonTemp.setButtonType("exit");
-  exitButtonState.add(exitButtonTemp);
-  
   
   continueButton = new Object(710, 350, 0);
   continueButton.setImage(continue_button);
   continueButton.setButtonType("continue");
-  continueButtonState.add(continueButton);
-  
-  Object continueButtonTemp = new Object(710, 350, 0);
-  continueButtonTemp.setImage(continue_selected);
-  continueButtonTemp.setButtonType("continue");
-  continueButtonState.add(continueButtonTemp);
-  
-  println("Continue button state");
-  print("Tamanho: ");
-  println(continueButtonState.size());
-  print("Imagem 0: ");
-  println(continueButtonState.get(0).getImage());
-  print("Imagem 1: ");
-  println(continueButtonState.get(1).getImage());
+ 
   
   
   startButton = new Object(710, 590, 0);
   startButton.setImage(start);
   startButton.setButtonType("start");
-  startButtonState.add(startButton);
   
-  Object startButtonTemp = new Object(710, 590, 0);
-  startButtonTemp.setImage(start_selected);
-  startButtonTemp.setButtonType("start");
-  startButtonState.add(startButtonTemp);
   
   gameButtons = new ArrayList<Object>();
   
-  soundButton = new Object(50, 50, 0);
+  soundButton = new Object(350, 50, 0);
   soundButton.setImage(sound3);
   soundButton.setButtonType("sound");
 
@@ -454,33 +416,33 @@ void draw() {
         if (hoversObject(gameButtons.get(k), gameButtons.get(k).getImage() , joints[KinectPV2.JointType_HandRight])) { 
           if (gameButtons.get(k).getButtonType().equals("sound")) {
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(soundButtonState.get(sound_state + 1).getImage());
-            gameButton.setCoordinates(soundButtonState.get(sound_state + 1).x, soundButtonState.get(sound_state + 1).y);
+            gameButton.setImage(soundButtonState[sound_state + 1].getImage());
+            //gameButton.setCoordinates(soundButtonState[sound_state + 1].x, soundButtonState.get(sound_state + 1).y);
           }
           
           // If the button is the settings button
           else if (gameButtons.get(k).getButtonType().equals("settings")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(settingsButtonState.get(1).getImage());
-            gameButton.setCoordinates(settingsButtonState.get(1).x, settingsButtonState.get(1).y);
+            gameButton.setImage(settings_selected);
+            //gameButton.setCoordinates(settingsButtonState.get(1).x, settingsButtonState.get(1).y);
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             Object gameButton = gameButtons.get(k);
             gameButton.setImage(continue_selected);
-            gameButton.setCoordinates(continueButtonState.get(1).x, continueButtonState.get(1).y);
+            //gameButton.setCoordinates(continueButtonState.get(1).x, continueButtonState.get(1).y);
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(exitButtonState.get(1).getImage());
-            gameButton.setCoordinates(exitButtonState.get(1).x, exitButtonState.get(1).y);
+            gameButton.setImage(exit_selected);
+            //gameButton.setCoordinates(exitButtonState.get(1).x, exitButtonState.get(1).y);
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(startButtonState.get(1).getImage());
-            gameButton.setCoordinates(startButtonState.get(1).x, startButtonState.get(1).y);
+            gameButton.setImage(start_selected);
+            //gameButton.setCoordinates(startButtonState.get(1).x, startButtonState.get(1).y);
           }
           
           rightHand_open = true;
@@ -497,8 +459,8 @@ void draw() {
             }
             // We change the button image
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(soundButtonState.get(sound_state).getImage());
-            gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
+            gameButton.setImage(soundButtonState[sound_state].getImage());
+            //gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
           }
           
           // If the button is the settings button
@@ -524,35 +486,35 @@ void draw() {
         if (hoversObject(gameButtons.get(k), gameButtons.get(k).getImage() , joints[KinectPV2.JointType_HandLeft])) { 
           if (gameButtons.get(k).getButtonType().equals("sound")) {
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(soundButtonState.get(sound_state + 1).getImage());
-            gameButton.setCoordinates(soundButtonState.get(sound_state + 1).x, soundButtonState.get(sound_state + 1).y);
+            gameButton.setImage(soundButtonState[sound_state + 1].getImage());
+            //gameButton.setCoordinates(soundButtonState.get(sound_state + 1).x, soundButtonState.get(sound_state + 1).y);
           }
           
           // If the button is the settings button
           else if (gameButtons.get(k).getButtonType().equals("settings")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(settingsButtonState.get(1).getImage());
-            gameButton.setCoordinates(settingsButtonState.get(1).x, settingsButtonState.get(1).y);
+            gameButton.setImage(settings_selected);
+            //gameButton.setCoordinates(settingsButtonState.get(1).x, settingsButtonState.get(1).y);
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             Object gameButton = gameButtons.get(k);
             gameButton.setImage(continue_selected);
-            gameButton.setCoordinates(continueButtonState.get(1).x, continueButtonState.get(1).y);
+            //gameButton.setCoordinates(continueButtonState.get(1).x, continueButtonState.get(1).y);
             println("Faz hover com mao esquerda no continue");
             println(gameButtons.get(k).getImage());
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(exitButtonState.get(1).getImage());
-            gameButton.setCoordinates(exitButtonState.get(1).x, exitButtonState.get(1).y);
+            gameButton.setImage(exit_selected);
+            //gameButton.setCoordinates(exitButtonState.get(1).x, exitButtonState.get(1).y);
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(startButtonState.get(1).getImage());
-            gameButton.setCoordinates(startButtonState.get(1).x, startButtonState.get(1).y);
+            gameButton.setImage(start_selected);
+            //gameButton.setCoordinates(startButtonState.get(1).x, startButtonState.get(1).y);
           }
           
           leftHand_open = true;
@@ -569,8 +531,8 @@ void draw() {
             }
             // We change the button image
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(soundButtonState.get(sound_state).getImage());
-            gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
+            gameButton.setImage(soundButtonState[sound_state].getImage());
+            //gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
           }
           
           // If the button is the settings button
@@ -597,34 +559,34 @@ void draw() {
         else {
           if (gameButtons.get(k).getButtonType().equals("sound")) {
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(soundButtonState.get(sound_state).getImage());
-            gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
+            gameButton.setImage(soundButtonState[sound_state].getImage());
+            //gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
           }
           
           // If the button is the settings button
           else if (gameButtons.get(k).getButtonType().equals("settings")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(settingsButtonState.get(0).getImage());
-            gameButton.setCoordinates(settingsButtonState.get(0).x, settingsButtonState.get(0).y);
+            gameButton.setImage(settings);
+            //gameButton.setCoordinates(settingsButtonState.get(0).x, settingsButtonState.get(0).y);
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             Object gameButton = gameButtons.get(k);
             gameButton.setImage(continue_button);
-            gameButton.setCoordinates(continueButtonState.get(0).x, continueButtonState.get(0).y);
+            //gameButton.setCoordinates(continueButtonState.get(0).x, continueButtonState.get(0).y);
 
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(exitButtonState.get(0).getImage());
-            gameButton.setCoordinates(exitButtonState.get(0).x, exitButtonState.get(0).y);
+            gameButton.setImage(exit);
+            //gameButton.setCoordinates(exitButtonState.get(0).x, exitButtonState.get(0).y);
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(startButtonState.get(0).getImage());
-            gameButton.setCoordinates(startButtonState.get(0).x, startButtonState.get(0).y);
+            gameButton.setImage(start);
+            //gameButton.setCoordinates(startButtonState.get(0).x, startButtonState.get(0).y);
           }
           
           rightHand_open = true;
