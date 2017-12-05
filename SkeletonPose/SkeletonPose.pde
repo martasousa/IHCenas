@@ -597,7 +597,7 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
-            changeScreen(screen + 1);      
+            changeScreen(6);      
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
@@ -606,7 +606,7 @@ void draw() {
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
-            changeScreen(6); 
+            changeScreen(screen + 1); 
           }
         }
         
@@ -684,7 +684,7 @@ void draw() {
           }
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
-            changeScreen(screen + 1);
+            changeScreen(6);
             
           }
           // If the button is the exit button
@@ -694,7 +694,7 @@ void draw() {
           }
            // If the button is the start button
           else if (gameButtons.get(k).getButtonType().equals("start")){
-            changeScreen(6); 
+            changeScreen(screen + 1); 
           }
         }
         
@@ -982,7 +982,7 @@ boolean dropObject(Object object) {
 }
 
 boolean moveOn(KJoint right, KJoint left) {
-  if (screen == 2 || screen == 3) {
+  if ((screen == 2)|| (screen == 3)) {
     PVector rhand = right.getPosition();
     PVector lhand = left.getPosition();
     print("Rhand: ");
