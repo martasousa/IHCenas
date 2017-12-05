@@ -1,7 +1,4 @@
-
-/*
-https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx
-
+ 
  //TODO: Timer com ajuda
  //Mudar o nome do muted para sound0
  //Always present: som, 
