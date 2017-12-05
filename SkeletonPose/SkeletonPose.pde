@@ -228,7 +228,7 @@ void setup() {
   
   //Set game characters
   Object tempCharacter = new Object(500, 500, 0);
-  tempCharacter.setImage(loadImage("mae.png"));
+  tempCharacter.setImage(loadImage("mae_sem_cesta.png"));
   tempCharacter.setActive(false);
   tempCharacter.setActiveScreens(1);
   gameCharacters.add(tempCharacter);
@@ -247,12 +247,14 @@ void setup() {
   objectKey.setActive(false);
   objectKey.setActiveScreens(2);
   objectKey.setActiveScreens(3);
+  objectKey.setButtonType("chave");
   gameObjects.add(objectKey);
   
-  objectKey = new Object(500, 630, 0);
+  objectKey = new Object(560, 700, 0);
   objectKey.setImage(loadImage("cesta.png"));
   objectKey.setActive(false);
   objectKey.setActiveScreens(1);
+  objectKey.setButtonType("cesta");
   gameObjects.add(objectKey);
   
   
@@ -481,6 +483,7 @@ void draw() {
           moveObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft].getPosition());
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
         }
+        dropObject(gameObjects.get(j));
       }
       for (int k = 0; k < gameButtons.size(); k++) {
         
@@ -906,5 +909,13 @@ void showHelp() {
       }
     }
   }
+}
 
+void dropObject(Object object) {
+  if (object.getButtonType().equals("cesta")){
+    if (object.y < soundButton.y) {
+      object.x = 1600;
+      object.y = 30;
+    }
+  }
 }
