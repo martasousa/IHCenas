@@ -220,16 +220,17 @@ void setup() {
   Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
   objectKey.setImage(loadImage("chave.png"));
   objectKey.setActive(false);
-  objectKey.setActiveScreens(2);
   objectKey.setActiveScreens(3);
+  objectKey.setActiveScreens(4);
   objectKey.setButtonType("chave");
   gameObjects.add(objectKey);
   
   objectKey = new Object(560, 700, 0);
   objectKey.setImage(loadImage("cesta.png"));
-  objectKey.setActive(false);
   objectKey.setActiveScreens(1);
-  
+  objectKey.setActiveScreens(2);
+  objectKey.setActiveScreens(3);
+  objectKey.setActive(false);
   objectKey.setButtonType("cesta");
   gameObjects.add(objectKey);
   
@@ -384,6 +385,7 @@ void draw() {
   
   // Draw background
   background(0);
+  println("Screen: " + screen);
   
   for (Object gameBackground : gameBackgrounds) {
     if (gameBackground.getActive()) {
