@@ -462,6 +462,7 @@ void draw() {
                 sound_state = 0;
               }
               // We change the button image
+              file.amp(0.125 * sound_state);
               Object gameButton = gameButtons.get(k);
               gameButton.setImage(soundButtonState[sound_state].getImage());
               //gameButton.setCoordinates(soundButtonState.get(sound_state).x, soundButtonState.get(sound_state).y);
@@ -472,6 +473,7 @@ void draw() {
               if (sound_state >= 8) {
                 sound_state = 0;
               }
+              file.amp(0.125 * sound_state);
               // We change the button image
               Object gameButton = gameButtons.get(k);
               gameButton.setImage(soundButtonState[sound_state].getImage());
@@ -546,6 +548,7 @@ void draw() {
               if (sound_state >= 8) {
                 sound_state = 0;
               }
+              file.amp(0.125 * sound_state);
               // We change the button image
               Object gameButton = gameButtons.get(k);
               gameButton.setImage(soundButtonState[sound_state].getImage());
@@ -557,6 +560,7 @@ void draw() {
               if (sound_state >= 8) {
                 sound_state = 0;
               }
+              file.amp(0.125 * sound_state);
               // We change the button image
               Object gameButton = gameButtons.get(k);
               gameButton.setImage(soundButtonState[sound_state].getImage());
