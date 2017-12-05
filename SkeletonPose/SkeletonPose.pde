@@ -996,7 +996,12 @@ boolean dropObject(Object object) {
         println("Dropou a chave");
         return true;
       }
-  }
+  } else if (object.getButtonType().equals("chave") && (screen == 5)){
+    if ((object.y < 880 ) && (object.y > 600) {
+      if ((object.x > 1000) && (object.x < 1600))
+      {
+        return true;
+      } 
   
   return false;
 }
