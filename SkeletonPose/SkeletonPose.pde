@@ -358,13 +358,13 @@ void setup() {
   gameButtons.add(startButton);
   
   // Set game help
-  Object helpPopUp = new Object(512, 839, 0);
+  Object helpPopUp = new Object(512, 950, 0);
   helpPopUp.setImage(loadImage("help1.png"));
   helpPopUp.setActiveScreens(0);
   helpPopUp.setActive(false);
   gameHelps.add(helpPopUp);
   
-  helpPopUp = new Object(512, 839, 0);
+  helpPopUp = new Object(512, 950, 0);
   helpPopUp.setImage(loadImage("help2.png"));
   helpPopUp.setActiveScreens(1);
   helpPopUp.setActive(false);
@@ -839,8 +839,9 @@ void setActiveScreen(int screen) {
 void manageActiveObjects(ArrayList<Object> objects, int screen) {
   for (int i = 0; i < objects.size(); i++) {
     ArrayList<Integer> activeScreens = objects.get(i).getActiveScreens();
-    for (int j = 0; j < activeScreens.size(); j++) {
-      if (screen == activeScreens.get(j) || activeScreens.get(j) == -1) {
+    for (int activeScreen : activeScreens)
+    {
+      if (screen == activeScreen || activeScreen == -1) {
         objects.get(i).setActive(true);
       } else {
         objects.get(i).setActive(false);
