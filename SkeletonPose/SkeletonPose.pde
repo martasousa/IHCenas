@@ -388,7 +388,7 @@ void setup() {
 void draw() {
   
   // Draw background
-  background(0);
+  background(0);g
   
   for (Object gameBackground : gameBackgrounds) {
     if (gameBackground.getActive()) {
@@ -686,7 +686,6 @@ void draw() {
         }
       }
     }
-    setActiveScreen(screen);
     showHelp();
   }
 
@@ -834,23 +833,22 @@ void moveObject(Object object, PImage image, PVector vector) {
   object.setCoordinates((vector.x - image.width/2), (vector.y - image.height/2));
 }
 
-void setActiveScreen(int sc) {
-  manageActiveObjects(gameObjects, sc);
-  manageActiveObjects(gameBackgrounds, sc);
-  manageActiveObjects(gameButtons, sc);
-  manageActiveObjects(gameCharacters, sc);
+void setActiveScreen() {
+  manageActiveObjects(gameObjects);
+  manageActiveObjects(gameBackgrounds);
+  manageActiveObjects(gameButtons);
+  manageActiveObjects(gameCharacters);
 }
 
-void manageActiveObjects(ArrayList<Object> objects, int sc) {
+void manageActiveObjects(ArrayList<Object> objects) {
   print("Chamou manageActiveObjects com screen: ");
-  println(sc);
   print("Estamo no screen: ");
   print(screen);
   for (int i = 0; i < objects.size(); i++) {
 
     for (int activeScreen : objects.get(i).getActiveScreens())
     {
-      if (sc == activeScreen || activeScreen == -1) {
+      if (screen == activeScreen || activeScreen == -1) {
         objects.get(i).setActive(true);
       } else {
         objects.get(i).setActive(false);
@@ -870,6 +868,7 @@ void changeScreen(int new_screen) {
     if (screen > 6) {
       screen = 0;
     }
+    setActiveScreen();
   } else {
     if (startScenarioTimer + changeScreenAfter <= millis()) {
       startScenarioTimer = millis();
@@ -881,6 +880,7 @@ void changeScreen(int new_screen) {
         screen = 0;
       }
     }
+    setActiveScreen();
   }
   
 };
