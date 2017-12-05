@@ -515,8 +515,8 @@ void draw() {
           moveObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft].getPosition());
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
         } else {
-          if (dropObject(gameObjects.get(j)))
-            changeScreen(screen +1 );
+          if (gameObjects.get(j).getActive() && dropObject(gameObjects.get(j)))
+            changeScreen(screen + 1 );
         }
       }
       for (int k = 0; k < gameButtons.size(); k++) {
@@ -971,6 +971,7 @@ boolean dropObject(Object object) {
       object.x = 1600;
       object.y = 30;
       object.setActiveScreens(2);
+      println("Dropou a cesta");
       return true;
     }
   }else if (object.getButtonType().equals("cesta") && (screen == 2)){
@@ -992,6 +993,7 @@ boolean dropObject(Object object) {
         object.x = (1600 - 300);
         object.y = 30;
         object.setActiveScreens(5);
+        println("Dropou a chave");
         return true;
       }
   }
