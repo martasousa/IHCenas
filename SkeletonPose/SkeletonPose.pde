@@ -483,7 +483,7 @@ void draw() {
                 screen = 0;
               }
             } else {
-              if (startScenarioTimer + changeScreenAfter >= millis()) {
+              if (startScenarioTimer + changeScreenAfter <= millis()) {
                 startScenarioTimer = millis();
                 println(startScenarioTimer);
                 println(millis());
