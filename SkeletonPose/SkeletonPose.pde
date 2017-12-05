@@ -206,14 +206,14 @@ void setup() {
   tempCharacter.setImage(loadImage("mae.png"));
   tempCharacter.setActive(false);
   tempCharacter.setActiveScreens(1);
-  gameBackgrounds.add(tempBackground);
+  gameCharacters.add(tempCharacter);
   
   
   tempCharacter = new Object(500, 500, 0);
   tempCharacter.setImage(loadImage("lobo.png"));
   tempCharacter.setActive(false);
   tempCharacter.setActiveScreens(2);
-  gameBackgrounds.add(tempBackground);
+  gameCharacters.add(tempCharacter);
   
   
   //Set game objects here
@@ -222,7 +222,7 @@ void setup() {
   objectKey.setActive(false);
   objectKey.setActiveScreens(4);
   objectKey.setActiveScreens(5);
-  gameBackgrounds.add(tempBackground);
+  gameObjects.add(objectKey);
   
   
   continue_button = loadImage("continue.png");
@@ -329,6 +329,12 @@ void setup() {
   startButtonState.add(startButtonTemp);
   
   gameButtons = new ArrayList<Object>();
+  
+  soundButton = new Object(50, 50, 0);
+  soundButton.setImage(sound3);
+  soundButton.setButtonType("sound");
+
+  
   gameButtons.add(soundButton);
   gameButtons.add(settingsButton);
   gameButtons.add(exitButton);
