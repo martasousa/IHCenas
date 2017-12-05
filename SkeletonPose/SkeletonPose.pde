@@ -249,6 +249,12 @@ void setup() {
   objectKey.setActiveScreens(3);
   gameObjects.add(objectKey);
   
+  objectKey = new Object(550, 650, 0);
+  objectKey.setImage(loadImage("cesta.png"));
+  objectKey.setActive(false);
+  objectKey.setActiveScreens(1);
+  gameObjects.add(objectKey);
+  
   
   continue_button = loadImage("continue.png");
   continue_selected = loadImage("continue_selected.png");
@@ -416,6 +422,12 @@ void draw() {
   for (Object gameHelp : gameHelps) {
     if (gameHelp.getActive()) {
       image(gameHelp.getImage(), gameHelp.x, gameHelp.y);
+    }
+  }
+  
+  for (Object gameCharacter : gameCharacters) {
+    if (gameCharacter.getActive()) {
+      image(gameCharacter.getImage(), gameCharacter.x, gameCharacter.y);
     }
   }
   
@@ -833,6 +845,7 @@ void setActiveScreen(int screen) {
   manageActiveObjects(gameObjects, screen);
   manageActiveObjects(gameBackgrounds, screen);
   manageActiveObjects(gameButtons, screen);
+  manageActiveObjects(gameCharacters, screen);
 }
 
 void manageActiveObjects(ArrayList<Object> objects, int screen) {
