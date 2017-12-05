@@ -388,7 +388,7 @@ void setup() {
 void draw() {
   
   // Draw background
-  background(0);g
+  background(0);
   
   for (Object gameBackground : gameBackgrounds) {
     if (gameBackground.getActive()) {
@@ -848,8 +848,11 @@ void manageActiveObjects(ArrayList<Object> objects) {
 
     for (int activeScreen : objects.get(i).getActiveScreens())
     {
-      println("Active screens");
-      println(activeScreen);
+      if (objects.get(i).getButtonType().equals("cesta"))
+      {
+        println("Active screens");
+        println(activeScreen);
+      }
       if (screen == activeScreen || activeScreen == -1) {
         objects.get(i).setActive(true);
       } else {
