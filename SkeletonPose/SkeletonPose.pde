@@ -836,15 +836,6 @@ void moveObject(Object object, PImage image, PVector vector) {
 
 void setActiveScreen() {
   manageActiveObjects(gameObjects);
-  for (Object gameObject : gameObjects) {
-    if (gameObject.getButtonType().equals("cesta")) {
-      print("In cesta");
-      for (int sc : gameObject.getActiveScreens())
-      {
-        println(sc);
-      }
-    }
-  }
   manageActiveObjects(gameBackgrounds);
   manageActiveObjects(gameButtons);
   manageActiveObjects(gameCharacters);
@@ -920,6 +911,10 @@ boolean dropObject(Object object) {
       object.setActiveScreens(2);
       return true;
     }
+  }else if (object.getButtonType().equals("cesta") && screen == 1){
+    object.x = 1600;
+    object.y = 30;
+    object.setActiveScreens(3);
   }
   return false;
 }
