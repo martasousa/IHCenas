@@ -467,7 +467,7 @@ void draw() {
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(continueButtonState.get(1).getImage());
+            gameButton.setImage(continue_selected);
             gameButton.setCoordinates(continueButtonState.get(1).x, continueButtonState.get(1).y);
           }
           // If the button is the exit button
@@ -537,7 +537,7 @@ void draw() {
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(continueButtonState.get(1).getImage());
+            gameButton.setImage(continue_selected);
             gameButton.setCoordinates(continueButtonState.get(1).x, continueButtonState.get(1).y);
             println("Faz hover com mao esquerda no continue");
             println(gameButtons.get(k).getImage());
@@ -610,12 +610,9 @@ void draw() {
           // If the button is the continue button
           else if (gameButtons.get(k).getButtonType().equals("continue")){
             Object gameButton = gameButtons.get(k);
-            gameButton.setImage(continueButtonState.get(0).getImage());
+            gameButton.setImage(continue_button);
             gameButton.setCoordinates(continueButtonState.get(0).x, continueButtonState.get(0).y);
-            println("continueButtonState.get(other_state)");
-            println(continueButtonState.get(other_state).getImage());
-            println("continueButtonState.get(other_state +1 )");
-            println(continueButtonState.get(1).getImage());
+
           }
           // If the button is the exit button
           else if (gameButtons.get(k).getButtonType().equals("exit")){
