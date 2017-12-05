@@ -263,7 +263,8 @@ void setup() {
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound1);
   soundButtonTemp.setButtonType("sound");
-  soundf
+  soundButtonState.add(soundButtonTemp);
+  
   soundButtonTemp = new Object(50, 50, 0);
   soundButtonTemp.setImage(sound1_selected);
   soundButtonTemp.setButtonType("sound");
@@ -602,7 +603,7 @@ void draw() {
             Object gameButton = gameButtons.get(k);
             gameButton.setImage(continueButtonState.get(other_state).getImage());
             gameButton.setCoordinates(continueButtonState.get(other_state).x, continueButtonState.get(other_state).y);
-            println("está no continue sem hover");
+            println("NAO FAZ hover com mao esquerda no continue");
             println(gameButtons.get(k).getImage());
           }
           // If the button is the exit button
