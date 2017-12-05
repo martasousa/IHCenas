@@ -977,7 +977,21 @@ boolean dropObject(Object object) {
     object.x = 1600;
     object.y = 30;
     object.setActiveScreens(3);
+  } else if (object.getButtonType().equals("cesta") && screen == 3){
+    object.x = 1600;
+    object.y = 30;
+    object.setActiveScreens(4);
   }
+  if (object.getButtonType().equals("chave") && screen == 4){
+    if (object.y < (soundButton.y + soundButton.getImage().height)) {
+        object.x = 1600 - 300;
+        object.y = 30;
+        object.setActiveScreens(5);
+        return true;
+      }
+  }
+  
+  
   return false;
 }
 
