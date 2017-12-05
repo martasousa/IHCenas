@@ -737,7 +737,10 @@ void draw() {
         }
       }
       if (moveOn(joints[KinectPV2.JointType_HandRight], joints[KinectPV2.JointType_HandLeft])) {
-        changeScreen(3);
+        if (screen == 2)
+          changeScreen(3);
+         else if (screen == 3)
+           changeScreen(4);
       }
     }
     showHelp();
@@ -979,7 +982,7 @@ boolean dropObject(Object object) {
 }
 
 boolean moveOn(KJoint right, KJoint left) {
-  if (screen == 2) {
+  if (screen == 2 || screen == 3) {
     PVector rhand = right.getPosition();
     PVector lhand = left.getPosition();
     print("Rhand: ");
