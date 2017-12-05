@@ -392,19 +392,19 @@ void draw() {
   
   for (Object gameBackground : gameBackgrounds) {
     if (gameBackground.getActive()) {
-      image(gameBackground.getImage(), 0, 0);
+      //image(gameBackground.getImage(), 0, 0);
     }
   }
   
   for (Object gameCharacter : gameCharacters) {
     if (gameCharacter.getActive()) {
-      image(gameCharacter.getImage(), gameCharacter.x, gameCharacter.y);
+      //image(gameCharacter.getImage(), gameCharacter.x, gameCharacter.y);
     }
   }
   
   for (Object gameHelp : gameHelps) {
     if (gameHelp.getActive()) {
-      image(gameHelp.getImage(), gameHelp.x, gameHelp.y);
+      //image(gameHelp.getImage(), gameHelp.x, gameHelp.y);
     }
   }
   
