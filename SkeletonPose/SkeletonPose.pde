@@ -22,7 +22,7 @@ class Object{
     this.x = x;
     this.y = y;
     this.z = z;
-    this.activeScreens = new ArrayList();
+    this.activeScreens = new ArrayList<Integer>();
   }
   
   void setImage(PImage image) {
@@ -225,14 +225,14 @@ void setup() {
   objectKey.setButtonType("chave");
   gameObjects.add(objectKey);
   
-  objectKey = new Object(560, 700, 0);
-  objectKey.setImage(loadImage("cesta.png"));
-  objectKey.setActiveScreens(1);
-  objectKey.setActiveScreens(2);
-  objectKey.setActiveScreens(3);
-  objectKey.setActive(false);
-  objectKey.setButtonType("cesta");
-  gameObjects.add(objectKey);
+  Object objectBasket = new Object(560, 700, 0);
+  objectBasket.setImage(loadImage("cesta.png"));
+  objectBasket.setActiveScreens(1);
+  objectBasket.setActiveScreens(2);
+  objectBasket.setActiveScreens(3);
+  objectBasket.setActive(false);
+  objectBasket.setButtonType("cesta");
+  gameObjects.add(objectBasket);
   
   
   continue_button = loadImage("continue.png");
