@@ -228,8 +228,6 @@ void setup() {
   Object objectBasket = new Object(560, 700, 0);
   objectBasket.setImage(loadImage("cesta.png"));
   objectBasket.setActiveScreens(1);
-  objectBasket.setActiveScreens(2);
-  objectBasket.setActiveScreens(3);
   objectBasket.setActive(false);
   objectBasket.setButtonType("cesta");
   println(objectBasket.getActiveScreens().size());
@@ -392,19 +390,19 @@ void draw() {
   
   for (Object gameBackground : gameBackgrounds) {
     if (gameBackground.getActive()) {
-      //image(gameBackground.getImage(), 0, 0);
+      image(gameBackground.getImage(), 0, 0);
     }
   }
   
   for (Object gameCharacter : gameCharacters) {
     if (gameCharacter.getActive()) {
-      //image(gameCharacter.getImage(), gameCharacter.x, gameCharacter.y);
+      image(gameCharacter.getImage(), gameCharacter.x, gameCharacter.y);
     }
   }
   
   for (Object gameHelp : gameHelps) {
     if (gameHelp.getActive()) {
-      //image(gameHelp.getImage(), gameHelp.x, gameHelp.y);
+      image(gameHelp.getImage(), gameHelp.x, gameHelp.y);
     }
   }
   
@@ -916,6 +914,7 @@ boolean dropObject(Object object) {
     if (object.y < (soundButton.y + soundButton.getImage().height)) {
       object.x = 1600;
       object.y = 30;
+      object.setActiveScreens(2);
       return true;
     }
   }
