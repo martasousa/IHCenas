@@ -848,6 +848,8 @@ void manageActiveObjects(ArrayList<Object> objects) {
 
     for (int activeScreen : objects.get(i).getActiveScreens())
     {
+      println("Active screens");
+      println(activeScreen);
       if (screen == activeScreen || activeScreen == -1) {
         objects.get(i).setActive(true);
       } else {
