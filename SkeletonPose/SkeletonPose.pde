@@ -197,16 +197,16 @@ void setup() {
   gameBackgrounds.add(tempBackground);
   
   tempBackground = new Object(0, 0, 0);
-  tempBackground.setImage(loadImage("cenario6.png"));
+  tempBackground.setImage(loadImage("fim.png"));
   tempBackground.setActive(false);
   tempBackground.setActiveScreens(7);
   gameBackgrounds.add(tempBackground);
   
-  tempBackground = new Object(0, 0, 0);
+  /*tempBackground = new Object(0, 0, 0);
   tempBackground.setImage(loadImage("cenario7.png"));
   tempBackground.setActive(false);
   tempBackground.setActiveScreens(8);
-  gameBackgrounds.add(tempBackground);
+  gameBackgrounds.add(tempBackground);*/
   
   
   //Set game characters
@@ -990,7 +990,14 @@ boolean dropObject(Object object) {
     object.x = 1600;
     object.y = 30;
     object.setActiveScreens(6);
-  } 
+  } else if (object.getButtonType().equals("cesta") && (screen == 6)){
+    if ((object.y < 700 ) && (object.y > 550)) {
+      if ((object.x > 550) && (object.x < 750))
+      {
+        return true;
+      } 
+    }
+  }
   
   if (object.getButtonType().equals("chave") && (screen == 4)){
     if (object.y < (soundButton.y + soundButton.getImage().height)) {
@@ -1002,7 +1009,7 @@ boolean dropObject(Object object) {
       }
   } else if (object.getButtonType().equals("chave") && (screen == 5)){
     if ((object.y < 880 ) && (object.y > 600)) {
-      if ((object.x > 1200) && (object.x < 1500))
+      if ((object.x > 1000) && (object.x < 1400))
       {
         return true;
       } 
