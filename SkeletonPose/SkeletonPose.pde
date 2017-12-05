@@ -138,6 +138,7 @@ void setup() {
   gameObjects = new ArrayList<Object>();
   gameBackgrounds = new ArrayList<Object>();
   soundButtonState = new ArrayList<Object>();
+  
   continueButtonState = new ArrayList<Object>();
   exitButtonState = new ArrayList<Object>();
   settingsButtonState = new ArrayList<Object>();
@@ -322,6 +323,14 @@ void setup() {
   continueButtonTemp.setImage(continue_selected);
   continueButtonTemp.setButtonType("continue");
   continueButtonState.add(continueButtonTemp);
+  
+  println("Continue button state");
+  print("Tamanho: ");
+  println(continueButtonState.size());
+  print("Imagem 0: ");
+  println(continueButtonState.get(0).getImage());
+  print("Imagem 1: ");
+  println(continueButtonState.get(1).getImage());
   
   
   startButton = new Object(710, 590, 0);
