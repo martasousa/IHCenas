@@ -236,14 +236,20 @@ void setup() {
   Object objectKey = new Object((width/2)+130, (height/4)-100, 0);
   objectKey.setImage(loadImage("chave.png"));
   objectKey.setActive(false);
-  objectKey.setActiveScreens(3);
   objectKey.setActiveScreens(4);
+  objectKey.setActiveScreens(5);
+  objectKey.setActiveScreens(6);
   objectKey.setButtonType("chave");
   gameObjects.add(objectKey);
   
   Object objectBasket = new Object(560, 700, 0);
   objectBasket.setImage(loadImage("cesta.png"));
   objectBasket.setActiveScreens(1);
+  objectBasket.setActiveScreens(2);
+  objectBasket.setActiveScreens(3);
+  objectBasket.setActiveScreens(4);
+  objectBasket.setActiveScreens(5);
+  objectBasket.setActiveScreens(6);
   objectBasket.setActive(false);
   objectBasket.setButtonType("cesta");
   println(objectBasket.getActiveScreens().size());
@@ -427,10 +433,12 @@ void setup() {
   
  Object inventoryBar = new Object(0, 0, 0);
  inventoryBar.setImage(inventory);
+ inventoryBar.setActiveScreens(1);
  inventoryBar.setActiveScreens(2);
  inventoryBar.setActiveScreens(3);
  inventoryBar.setActiveScreens(4);
  inventoryBar.setActiveScreens(5);
+ inventoryBar.setActiveScreens(6);
  inventoryBar.setActive(false);  
  inventoryBar.setButtonType("inventory");
   
@@ -526,13 +534,14 @@ void draw() {
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
           
           for (int k = 0; k < triggeredByObjects.size(); k++) {
-            if (isTriggered(gameObjects.get(j), triggeredByObjects.get(k))) {
-              if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
+            if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
+              if (isTriggered(gameObjects.get(j), triggeredByObjects.get(k))) {
                 triggeredByObjects.get(k).setImage(inventory_sel);
+              } else {
+                triggeredByObjects.get(k).setImage(inventory);
               }
             }
           }
-          
         }
         else if (holdsObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft]) && gameObjects.get(j).getActive()) {
           
@@ -1017,31 +1026,25 @@ boolean dropObject(Object object) {
     if (object.y < (soundButton.y + soundButton.getImage().height)) {
       object.x = 1600;
       object.y = 30;
-      object.setActiveScreens(2);
       println("Dropou a cesta");
       return true;
     }
   }else if (object.getButtonType().equals("cesta") && (screen == 2)){
     object.x = 1600;
     object.y = 30;
-    object.setActiveScreens(3);
   } else if (object.getButtonType().equals("cesta") && (screen == 3)){
     object.x = 1600;
     object.y = 30;
-    object.setActiveScreens(4);
   } else if (object.getButtonType().equals("cesta") && (screen == 4)){
     object.x = 1600;
     object.y = 30;
-    object.setActiveScreens(5);
   } else if (object.getButtonType().equals("cesta") && (screen == 5)){
     object.x = 1600;
     object.y = 30;
-    object.setActiveScreens(6);
   } else if (object.getButtonType().equals("cesta") && (screen == 6)){
     if ((object.y < 700 ) && (object.y > 550)) {
       if ((object.x > 550) && (object.x < 750))
       {
-        object.setActiveScreens(1);
         object.x = 560;
         object.y = 700;
         return true;
@@ -1053,15 +1056,12 @@ boolean dropObject(Object object) {
     if (object.y < (soundButton.y + soundButton.getImage().height)) {
         object.x = (1600 - 300);
         object.y = 30;
-        object.setActiveScreens(5);
-        println("Dropou a chave");
         return true;
       }
   } else if (object.getButtonType().equals("chave") && (screen == 5)){
     if ((object.y < 880 ) && (object.y > 600)) {
       if ((object.x > 1000) && (object.x < 1400))
       {
-        object.setActiveScreens(4);
         object.x = 560;
         object.y = 700;
         return true;
@@ -1076,12 +1076,6 @@ boolean moveOn(KJoint right, KJoint left) {
   if ((screen == 2)|| (screen == 3)) {
     PVector rhand = right.getPosition();
     PVector lhand = left.getPosition();
-    print("Rhand: ");
-    println(rhand.x);
-    println(rhand.y);
-    print("Lhand: ");
-    println(lhand.x);
-    println(lhand.y);
     if (rhand.y  - lhand.y <= 50 ) {
       if (rhand.x - lhand.x <= 50) {
         return true;
