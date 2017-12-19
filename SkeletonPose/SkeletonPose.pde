@@ -81,6 +81,7 @@ PImage exit;
 PImage exit_selected;
 PImage inventory;
 PImage inventory_sel;
+PImage dialog3;
 SoundFile file;
 
 ArrayList<Object> gameObjects;
@@ -398,6 +399,12 @@ void setup() {
   helpPopUp.setActive(false);
   gameHelps.add(helpPopUp);
   
+  helpPopUp = new Object(512, 950, 0);
+  helpPopUp.setImage(loadImage("help3.png"));
+  helpPopUp.setActiveScreens(2);
+  helpPopUp.setActive(false);
+  gameHelps.add(helpPopUp);
+  
   Object missionPopUp = new Object(160, 930, 0);
   missionPopUp.setImage(loadImage("Missao1.png"));
   missionPopUp.setActiveScreens(1);
@@ -454,6 +461,8 @@ void setup() {
   capuchinho.setActiveScreens(3);
   capuchinho.setActive(false);
   image_anim = capuchinho.y;
+  
+  dialog3 = loadImage("help3.png");
   
   
   // Load a soundfile from the /data folder of the sketch and play it back
