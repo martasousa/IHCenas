@@ -808,7 +808,7 @@ void draw() {
           capuchinho.y = image_anim;
           
           image(capuchinho.getImage(), capuchinho.x, capuchinho.y);
-          if (capuchinho.y <= 300) {
+          if (capuchinho.y <= 450) {
             capuchinho.setActive(false);
             capuchinho.setImage(backup);
             changeScreen(3);
@@ -826,7 +826,7 @@ void draw() {
           capuchinho.setActive(true);
           capuchinho.y = image_anim;
           image(capuchinho.getImage(), capuchinho.x, capuchinho.y);
-          if (capuchinho.y <= 300) {
+          if (capuchinho.y <= 450) {
             capuchinho.setActive(false);
             capuchinho.setImage(backup);
             changeScreen(5);
