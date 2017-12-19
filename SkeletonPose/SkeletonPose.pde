@@ -548,9 +548,11 @@ void draw() {
           moveObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft].getPosition());
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
           for (int k = 0; k < triggeredByObjects.size(); k++) {
-            if (isTriggered(gameObjects.get(j), triggeredByObjects.get(k))) {
-              if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
+            if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
+              if (isTriggered(gameObjects.get(j), triggeredByObjects.get(k))) {
                 triggeredByObjects.get(k).setImage(inventory_sel);
+              } else {
+                triggeredByObjects.get(k).setImage(inventory);
               }
             }
           }
