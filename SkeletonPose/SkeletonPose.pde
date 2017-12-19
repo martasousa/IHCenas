@@ -1024,7 +1024,7 @@ void changeScreen(int new_screen) {
       for (int i = 0; i < gameHelps.size(); i++) {
         gameHelps.get(i).setActive(false);
       }
-      if (screen > 6) {
+      if (screen > 7) {
         screen = 0;
       }
     }
