@@ -79,6 +79,8 @@ PImage settings;
 PImage settings_selected;
 PImage exit;
 PImage exit_selected;
+PImage inventory;
+PImage inventory_sel;
 SoundFile file;
 
 ArrayList<Object> gameObjects;
@@ -87,6 +89,7 @@ ArrayList<Object> gameBackgrounds;
 ArrayList<Object> gameCharacters;
 ArrayList<Object> gameHelps;
 ArrayList<Object> gameMissions;
+ArrayList<Object> triggeredByObjects;
 
 Object[] soundButtonState;
 
@@ -207,6 +210,10 @@ void setup() {
   tempBackground.setActive(false);
   tempBackground.setActiveScreens(8);
   gameBackgrounds.add(tempBackground);*/
+  
+  //Inventory bar loading here
+  inventory = loadImage("inventory.png");
+  inventory_sel = loadImage("inventory_sel.png");
   
   
   //Set game characters
@@ -417,10 +424,16 @@ void setup() {
   missionPopUp.setActive(false);
   gameMissions.add(missionPopUp);
   
+ Object inventoryBar = new Object(0, 0, 0);
+ inventoryBar.setImage(inventory);
+ inventoryBar.setActiveScreens(2);
+ inventoryBar.setActiveScreens(3);
+ inventoryBar.setActiveScreens(4);
+ inventoryBar.setActiveScreens(5);
+ inventoryBar.setActive(false);  
+ inventoryBar.setButtonType("inventory");
   
-  
-  
-  
+  triggeredByObjects.add(inventoryBar);
   
   // Load a soundfile from the /data folder of the sketch and play it back
   file = new SoundFile(this, "sound.wav");
@@ -462,12 +475,14 @@ void draw() {
   for (Object gameObject : gameObjects) {
     if (gameObject.getActive()) {
       image(gameObject.getImage(), gameObject.x, gameObject.y);
-      print("X: ");
-      println(gameObject.x);
-      print("Y: ");
-      println(gameObject.y);
     }
   }
+  for (Object triggeredByObject: triggeredByObjects) {
+    if (triggeredByObject.getActive()) {
+      image(triggeredByObject.getImage(), triggeredByObject.x, triggeredByObject.y);
+    }
+  }
+  
   
   
   
@@ -506,14 +521,30 @@ void draw() {
       //println(joints[KinectPV2.JointType_HandRight].getPosition());
       for (int j = 0; j < gameObjects.size(); j++) {
         if (holdsObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandRight]) && gameObjects.get(j).getActive()) {
-          println("Mao direita na bola");
           moveObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandRight].getPosition());
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
+          
+          for (int k = 0; k < triggeredByObjects.size(); k++) {
+            if (isTriggered(gameObjects.get(j), triggeredByObjects.get(k))) {
+              if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
+                triggeredByObjects.get(k).setImage(inventory_sel);
+              }
+            }
+          }
+          
         }
         else if (holdsObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft]) && gameObjects.get(j).getActive()) {
-          println("Mao direita na bola");
+          
           moveObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft].getPosition());
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
+          for (int k = 0; k < triggeredByObjects.size(); k++) {
+            if (isTriggered(gameObjects.get(j), triggeredByObjects.get(k))) {
+              if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
+                triggeredByObjects.get(k).setImage(inventory_sel);
+              }
+            }
+          }
+          
         } else {
           if (gameObjects.get(j).getActive() && dropObject(gameObjects.get(j)))
             changeScreen(screen + 1 );
@@ -896,18 +927,19 @@ void setActiveScreen() {
   manageActiveObjects(gameButtons);
   manageActiveObjects(gameCharacters);
   manageActiveObjects(gameMissions);
+  manageActiveObjects(triggeredByObjects);
 }
 
 void manageActiveObjects(ArrayList<Object> objects) {
   print("Chamou manageActiveObjects com screen: ");
-  print("Estamo no screen: ");
-  print(screen);
+  println(screen);
   for (int i = 0; i < objects.size(); i++) {
 
     for (int activeScreen : objects.get(i).getActiveScreens())
     {
       if (screen == activeScreen || activeScreen == -1) {
         objects.get(i).setActive(true);
+        break;
       } else {
         objects.get(i).setActive(false);
       }
@@ -1058,4 +1090,17 @@ boolean moveOn(KJoint right, KJoint left) {
   }
     
   return false;
+}
+
+boolean isTriggered(Object object, Object toTrigger) {
+  if (!object.getActive() || !toTrigger.getActive()){
+    return false;
+  }
+  if ((object.y <= (toTrigger.y + toTrigger.getImage().height)) && (object.y >= toTrigger.y)){
+    if ((object.x <= (toTrigger.x + toTrigger.getImage().width)) && (object.x >= toTrigger.x)) {
+      return true;
+    }
+  }
+  return false;
+  
 }
