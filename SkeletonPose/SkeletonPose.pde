@@ -798,10 +798,12 @@ void draw() {
           capuchinho.setActive(true);
           capuchinho.y = image_anim;
           image(capuchinho.getImage(), capuchinho.x, capuchinho.y);
-   
-          capuchinho.setActive(false);
-          changeScreen(3);
+          if (capuchinho.y >= 700) {
+            capuchinho.setActive(false);
+            changeScreen(3);
+            image_anim = 100;
           }
+        }
          else if (screen == 3) {
            changeScreen(4);
          }
