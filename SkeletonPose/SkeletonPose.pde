@@ -558,7 +558,6 @@ void draw() {
           }
           
         } else {
-          triggeredByObjects.get(0).setImage(inventory);
           if (gameObjects.get(j).getActive() && dropObject(gameObjects.get(j)))
             changeScreen(screen + 1 );
         }
