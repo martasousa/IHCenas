@@ -94,7 +94,7 @@ ArrayList<Object> triggeredByObjects;
 Object[] soundButtonState;
 
 
-Object soundButton, settingsButton, exitButton, startButton, continueButton;
+Object soundButton, settingsButton, exitButton, startButton, continueButton, capuchinho;
 
 int selectedMargin = 10;
 int sound_state = 0;
@@ -109,8 +109,11 @@ int helpTimer = 10000; // set help timer for 10 secs
 int startHelpTimer = 0;
 int changeSoundAfter = 500;
 int startSoundTimer = 0;
+int image_anim = 100;
 
 void setup() {
+  
+  image_anim= 100;
   
   println("Started setup");
   gameObjects = new ArrayList<Object>();
@@ -444,6 +447,15 @@ void setup() {
   
   triggeredByObjects.add(inventoryBar);
   
+  capuchinho = new Object(500, 450, 0);
+  capuchinho.setImage(loadImage("capuchinho_costas.png"));
+  capuchinho.setButtonType("capuchinho");
+  capuchinho.setActiveScreens(2);
+  capuchinho.setActiveScreens(3);
+  capuchinho.setActive(false);
+  
+  
+  
   // Load a soundfile from the /data folder of the sketch and play it back
   file = new SoundFile(this, "sound.wav");
   file.play();
@@ -456,6 +468,7 @@ void draw() {
   
   // Draw background
   background(0);
+  image_anim += 1;
   
   for (Object gameBackground : gameBackgrounds) {
     if (gameBackground.getActive()) {
@@ -780,11 +793,18 @@ void draw() {
         }
       }
       if (moveOn(joints[KinectPV2.JointType_HandRight], joints[KinectPV2.JointType_HandLeft])) {
-        if (screen == 2)
+        if (screen == 2) {
+   
+          capuchinho.setActive(true);
+          capuchinho.y = image_anim;
+          image(capuchinho.getImage(), capuchinho.x, capuchinho.y);
+   
+          capuchinho.setActive(false);
           changeScreen(3);
-         else if (screen == 3)
+          }
+         else if (screen == 3) {
            changeScreen(4);
-      }
+         }
     }
     showHelp();
   }
