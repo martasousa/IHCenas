@@ -104,7 +104,7 @@ boolean leftHand_open = true;
 
 int screen = 0; // This will allow us to change screens... Hopefully
 int startScenarioTimer = 0;
-int changeScreenAfter = 5000; // we can only change screen after 5 secs
+int changeScreenAfter = 2500; // we can only change screen after 2.5 secs
 int helpTimer = 10000; // set help timer for 10 secs
 int startHelpTimer = 0;
 int changeSoundAfter = 500;
