@@ -548,8 +548,8 @@ void draw() {
           moveObject(gameObjects.get(j), gameObjects.get(j).getImage(), joints[KinectPV2.JointType_HandLeft].getPosition());
           image(gameObjects.get(j).getImage(), gameObjects.get(j).x , gameObjects.get(j).y);
           for (int k = 0; k < triggeredByObjects.size(); k++) {
-            if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
-              if (isTriggered(gameObjects.get(j), triggeredByObjects.get(k))) {
+            if (isTriggered(gameObjects.get(j), triggeredByObjects.get(k))) {
+              if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
                 triggeredByObjects.get(k).setImage(inventory_sel);
               } else {
                 triggeredByObjects.get(k).setImage(inventory);
@@ -558,14 +558,8 @@ void draw() {
           }
           
         } else {
-          for (int k = 0; k < triggeredByObjects.size(); k++) {
-            if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
-              triggeredByObjects.get(k).setImage(inventory);
-            }
-          }
-          if (gameObjects.get(j).getActive() && dropObject(gameObjects.get(j))){
+          if (gameObjects.get(j).getActive() && dropObject(gameObjects.get(j)))
             changeScreen(screen + 1 );
-          }
         }
       }
       for (int k = 0; k < gameButtons.size(); k++) {
