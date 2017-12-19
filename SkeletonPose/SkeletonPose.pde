@@ -817,8 +817,7 @@ void draw() {
          else if (screen == 3) {
           PImage image = capuchinho.getImage();
           PImage backup = capuchinho.getImage();
-          image.width =-1;
-          image.height =-1;
+          image.resize(image.width-1,0);
           capuchinho.setImage(image);
           image_anim -= 1;
           capuchinho.setActive(true);
