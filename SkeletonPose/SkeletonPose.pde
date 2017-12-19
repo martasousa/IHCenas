@@ -794,7 +794,6 @@ void draw() {
       }
       if (moveOn(joints[KinectPV2.JointType_HandRight], joints[KinectPV2.JointType_HandLeft])) {
         if (screen == 2) {
-   
           capuchinho.setActive(true);
           capuchinho.y = image_anim;
           image(capuchinho.getImage(), capuchinho.x, capuchinho.y);
@@ -806,7 +805,8 @@ void draw() {
         }
          else if (screen == 3) {
            changeScreen(4);
-         }
+       }
+      }
     }
     showHelp();
   }
