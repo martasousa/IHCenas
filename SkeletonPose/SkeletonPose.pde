@@ -120,6 +120,7 @@ void setup() {
   gameHelps = new ArrayList<Object>();
   gameButtons = new ArrayList<Object>();
   gameMissions = new ArrayList<Object>();
+  triggeredByObjects = new ArrayList<Object>();
 
   //size(1920, 1080, P3D);
   fullScreen(P3D);
