@@ -447,7 +447,7 @@ void setup() {
   
   triggeredByObjects.add(inventoryBar);
   
-  capuchinho = new Object(500, 800, 0);
+  capuchinho = new Object(900, 1000, 0);
   capuchinho.setImage(loadImage("capuchinho_costas.png"));
   capuchinho.setButtonType("capuchinho");
   capuchinho.setActiveScreens(2);
