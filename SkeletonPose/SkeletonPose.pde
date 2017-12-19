@@ -558,13 +558,14 @@ void draw() {
           }
           
         } else {
-          if (gameObjects.get(j).getActive() && dropObject(gameObjects.get(j))){
-            for (int k = 0; k < triggeredByObjects.size(); k++) {
-              if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
-               triggeredByObjects.get(k).setImage(inventory);
-              }
+          for (int k = 0; k < triggeredByObjects.size(); k++) {
+            if (triggeredByObjects.get(k).getButtonType().equals("inventory")) {
+              triggeredByObjects.get(k).setImage(inventory);
             }
-          changeScreen(screen + 1 );
+          }
+          if (gameObjects.get(j).getActive() && dropObject(gameObjects.get(j))){
+            changeScreen(screen + 1 );
+          }
         }
       }
       for (int k = 0; k < gameButtons.size(); k++) {
