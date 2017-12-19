@@ -798,6 +798,8 @@ void draw() {
       if (moveOn(joints[KinectPV2.JointType_HandRight], joints[KinectPV2.JointType_HandLeft])) {
         if (screen == 2) {
           PImage backup = capuchinho.getImage();
+          int w_b = capuchinho.getImage().width;
+          int h_b = capuchinho.getImage().height;
           float w = capuchinho.getImage().width;
           w -= 1;
           if( w > 50) {
@@ -811,12 +813,15 @@ void draw() {
           if (capuchinho.y <= 450) {
             capuchinho.setActive(false);
             capuchinho.setImage(backup);
+            capuchinho.image.resize(w_b, h_b);
             changeScreen(3);
             image_anim = 525;
           }
         }
          else if (screen == 3) {
           PImage backup = capuchinho.getImage();
+          int w_b = capuchinho.getImage().width;
+          int h_b = capuchinho.getImage().height;
           float w = capuchinho.getImage().width;
           w -= 1;
           if( w > 50) {
@@ -829,6 +834,7 @@ void draw() {
           if (capuchinho.y <= 450) {
             capuchinho.setActive(false);
             capuchinho.setImage(backup);
+            capuchinho.image.resize(w_b, h_b);
             changeScreen(5);
             image_anim = 800;
           }
