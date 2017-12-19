@@ -447,7 +447,7 @@ void setup() {
   
   triggeredByObjects.add(inventoryBar);
   
-  capuchinho = new Object(900, 900, 0);
+  capuchinho = new Object(900, 524, 0);
   capuchinho.setImage(loadImage("capuchinho_costas.png"));
   capuchinho.setButtonType("capuchinho");
   capuchinho.setActiveScreens(2);
@@ -797,23 +797,36 @@ void draw() {
       }
       if (moveOn(joints[KinectPV2.JointType_HandRight], joints[KinectPV2.JointType_HandLeft])) {
         if (screen == 2) {
+          PImage image = capuchinho.getImage();
+          PImage backup = capuchinho.getImage();
+          image.width =-1;
+          image.height =-1;
+          capuchinho.setImage(image);
           image_anim -= 1;
           capuchinho.setActive(true);
           capuchinho.y = image_anim;
+          
           image(capuchinho.getImage(), capuchinho.x, capuchinho.y);
           if (capuchinho.y <= 200) {
             capuchinho.setActive(false);
+            capuchinho.setImage(backup);
             changeScreen(3);
-            image_anim = 800;
+            image_anim = 525;
           }
         }
          else if (screen == 3) {
+          PImage image = capuchinho.getImage();
+          PImage backup = capuchinho.getImage();
+          image.width =-1;
+          image.height =-1;
+          capuchinho.setImage(image);
           image_anim -= 1;
           capuchinho.setActive(true);
           capuchinho.y = image_anim;
           image(capuchinho.getImage(), capuchinho.x, capuchinho.y);
           if (capuchinho.y <= 200) {
             capuchinho.setActive(false);
+            capuchinho.setImage(backup);
             changeScreen(5);
             image_anim = 800;
           }
