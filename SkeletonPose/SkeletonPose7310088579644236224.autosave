@@ -109,7 +109,7 @@ int helpTimer = 10000; // set help timer for 10 secs
 int startHelpTimer = 0;
 int changeSoundAfter = 500;
 int startSoundTimer = 0;
-float image_anim = 100.0;
+int image_anim = 100;
 
 void setup() {
   
@@ -447,13 +447,13 @@ void setup() {
   
   triggeredByObjects.add(inventoryBar);
   
-  capuchinho = new Object(500, 800, 0);
+  capuchinho = new Object(500, 450, 0);
   capuchinho.setImage(loadImage("capuchinho_costas.png"));
   capuchinho.setButtonType("capuchinho");
   capuchinho.setActiveScreens(2);
   capuchinho.setActiveScreens(3);
   capuchinho.setActive(false);
-  image_anim = capuchinho.y;
+  
   
   
   // Load a soundfile from the /data folder of the sketch and play it back
@@ -468,7 +468,7 @@ void draw() {
   
   // Draw background
   background(0);
-  image_anim -= 0.5;
+  image_anim += 1;
   
   for (Object gameBackground : gameBackgrounds) {
     if (gameBackground.getActive()) {
@@ -797,7 +797,7 @@ void draw() {
           capuchinho.setActive(true);
           capuchinho.y = image_anim;
           image(capuchinho.getImage(), capuchinho.x, capuchinho.y);
-          if (capuchinho.y <= 200) {
+          if (capuchinho.y >= 700) {
             capuchinho.setActive(false);
             changeScreen(3);
             image_anim = 100;
